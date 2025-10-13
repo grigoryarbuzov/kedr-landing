@@ -246,21 +246,21 @@ function PriceList({ items }) {
 }
 
 export default function KedrLanding() {
-  const heroBg = "/src/assets/hero.png";
+  const heroBg = "/hero.png";
   const images = [
-    "/src/assets/1.jpg",
-    "/src/assets/2.jpg",
-    "/src/assets/3.jpg",
-    "/src/assets/4.jpg",
-    "/src/assets/5.jpg",
-    "/src/assets/6.jpg",
-    "/src/assets/7.jpg",
-    "/src/assets/8.jpg",
-    "/src/assets/9.jpg",
-    "/src/assets/10.jpg",
-    "/src/assets/11.jpg",
-    "/src/assets/12.jpg",
-    "/src/assets/13.jpg",
+    "/1.jpg",
+    "/2.jpg",
+    "/3.jpg",
+    "/4.jpg",
+    "/5.jpg",
+    "/6.jpg",
+    "/7.jpg",
+    "/8.jpg",
+    "/9.jpg",
+    "/10.jpg",
+    "/11.jpg",
+    "/12.jpg",
+    "/13.jpg",
     // "/src/assets/14.jpg",
     // "/src/assets/15.jpg",
     // "/src/assets/16.jpg",
@@ -288,7 +288,7 @@ export default function KedrLanding() {
   const meta = {
     title: "Кедр — база отдыха | Баня, домик, бассейн",
     description: "Кедр — уютная база отдыха с баней, домиками, бассейном и купелью. Забронируй отдых у природы!",
-    keywords: "база отдыха, баня, домик, бассейн, купель, Кедр, аренда",
+    keywords: "база отдыха, баня, домик, бассейн, купель, Кедр, аренда, Новосибирск, места для отдыха",
   };
 
   const heroText = ["Окажись на природе", "отдохни по-настоящему"];
@@ -296,7 +296,6 @@ export default function KedrLanding() {
 
   return (
     <div className="text-gray-800">
-      <link rel="icon" type="image/png" sizes="32x32" href="/src/assets/logo.svg" />
       <Meta title={meta.title} description={meta.description} keywords={meta.keywords} />
 
       <Hero bg={heroBg} titleLines={heroText} subtitle={heroSubtitle} />
