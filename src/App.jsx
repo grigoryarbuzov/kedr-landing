@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-
+import Gallery from './gallery'
 /* KedrLanding - single page component
    - Meta small helper (sets title + metas)
    - Hero with background + calligraphic font
@@ -60,99 +60,61 @@ function Hero({ bg, titleLines, subtitle }) {
   );
 }
 
-function Gallery({ images }) {
-  const [idx, setIdx] = useState(0);
-  const len = images.length || 1;
-  const containerRef = useRef(null);
-  const touchStartX = useRef(0);
-  const touchCurrentX = useRef(0);
-
-  useEffect(() => {
-    const id = setInterval(() => setIdx((s) => (s + 1) % len), 6000);
-    return () => clearInterval(id);
-  }, [len]);
-
-  function prev() {
-    setIdx((i) => (i - 1 + len) % len);
-  }
-  function next() {
-    setIdx((i) => (i + 1) % len);
-  }
-
-  function onTouchStart(e) {
-    touchStartX.current = e.touches[0].clientX;
-  }
-  function onTouchMove(e) {
-    touchCurrentX.current = e.touches[0].clientX;
-  }
-  function onTouchEnd() {
-    const dx = touchCurrentX.current - touchStartX.current;
-    if (Math.abs(dx) < 30) return; // small swipe
-    if (dx > 0) prev();
-    else next();
-    touchStartX.current = 0;
-    touchCurrentX.current = 0;
-  }
-
-  return (
-    <section id="gallery" className="py-12 bg-gray-50">
-      <div className="container mx-auto px-6 md:px-8">
-        <h2 className="text-2xl font-semibold mb-6">Галерея базы "Кедр"</h2>
-        <div className="relative">
-          <div
-            ref={containerRef}
-            onTouchStart={onTouchStart}
-            onTouchMove={onTouchMove}
-            onTouchEnd={onTouchEnd}
-            className="overflow-hidden rounded-lg shadow"
-            aria-roledescription="carousel"
-          >
-            <div
-              className="flex transition-transform duration-500"
-              style={{ transform: `translateX(${-idx * 100}%)` }}
-            >
-              {images.map((src, i) => (
-                <div key={i} className="min-w-full flex-shrink-0 flex items-center justify-center bg-gray-200">
-                  <img
-                    src={src}
-                    alt={`Фото базы Кедр ${i + 1}`}
-                    className="w-full h-[520px] object-contain bg-gray-200"
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <button
-            onClick={prev}
-            className="absolute left-3 top-1/2 -translate-y-1/2 bg-white/80 rounded-full p-2 shadow hover:bg-white"
-            aria-label="Предыдущее"
-          >
-            ‹
-          </button>
-          <button
-            onClick={next}
-            className="absolute right-3 top-1/2 -translate-y-1/2 bg-white/80 rounded-full p-2 shadow hover:bg-white"
-            aria-label="Следующее"
-          >
-            ›
-          </button>
-
-          <div className="flex gap-2 justify-center mt-4">
-            {images.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => setIdx(i)}
-                className={`w-3 h-3 rounded-full ${i === idx ? 'bg-amber-500' : 'bg-gray-300'}`}
-                aria-label={`Перейти к слайду ${i + 1}`}
-              />
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
+// function Gallery({ images }) {
+//   const [idx, setIdx] = useState(0);
+//   const len = images.length || 1;
+//   const containerRef = useRef(null);
+//   const touchStartX = useRef(0);
+//   const touchCurrentX = useRef(0);
+//
+//   useEffect(() => {
+//     const id = setInterval(() => setIdx((s) => (s + 1) % len), 6000);
+//     return () => clearInterval(id);
+//   }, [len]);
+//
+//   function prev() {
+//     setIdx((i) => (i - 1 + len) % len);
+//   }
+//   function next() {
+//     setIdx((i) => (i + 1) % len);
+//   }
+//
+//   function onTouchStart(e) {
+//     touchStartX.current = e.touches[0].clientX;
+//   }
+//   function onTouchMove(e) {
+//     touchCurrentX.current = e.touches[0].clientX;
+//   }
+//   function onTouchEnd() {
+//     const dx = touchCurrentX.current - touchStartX.current;
+//     if (Math.abs(dx) < 30) return; // small swipe
+//     if (dx > 0) prev();
+//     else next();
+//     touchStartX.current = 0;
+//     touchCurrentX.current = 0;
+//   }
+//
+//   return (
+//     <section id="gallery" className="py-12 bg-gray-50">
+//       <div className="container mx-auto px-6 md:px-8">
+//         <h2 className="text-2xl font-semibold mb-6">Галерея базы "Кедр"</h2>
+//         <div className="relative">
+//           {GalleryComponent(images)}
+//           <div className="flex gap-2 justify-center mt-4">
+//             {images.map((_, i) => (
+//               <button
+//                 key={i}
+//                 onClick={() => setIdx(i)}
+//                 className={`w-3 h-3 rounded-full ${i === idx ? 'bg-amber-500' : 'bg-gray-300'}`}
+//                 aria-label={`Перейти к слайду ${i + 1}`}
+//               />
+//             ))}
+//           </div>
+//         </div>
+//       </div>
+//     </section>
+//   );
+// }
 
 function Contacts({ phone, address, schedule }) {
   const mapQuery = encodeURIComponent(address);
@@ -279,8 +241,8 @@ export default function KedrLanding() {
   };
 
   const prices = [
-    { title: "Аренда домика", desc: "Коттедж на 4 человека. Пятница, Суббота", price: "10000 ₽", unit: "день" },
-    { title: "Аренда домика", desc: "Коттедж на 4 человека. Остальные дни", price: "8000 ₽", unit: "день" },
+    { title: "Аренда домика", desc: "Домик на 4 человека. Пятница, Суббота", price: "10000 ₽", unit: "день" },
+    { title: "Аренда домика", desc: "Домик на 4 человека. Остальные дни", price: "8000 ₽", unit: "день" },
     { title: "Баня", desc: "В домике", price: "4000 ₽", unit: "дополнительная услуга" },
     { title: "Купель", desc: "Открытая купель", price: "4000 ₽", unit: "дополнительная услуга" },
   ];
@@ -296,6 +258,11 @@ export default function KedrLanding() {
 
   return (
     <div className="text-gray-800">
+      <img
+        src="/logo.svg"
+        alt="Логотип"
+        className="fixed top-4 left-4 w-12 h-12 md:w-16 md:h-16 lg:w-40 lg:h-40 z-50"
+      />
       <Meta title={meta.title} description={meta.description} keywords={meta.keywords} />
 
       <Hero bg={heroBg} titleLines={heroText} subtitle={heroSubtitle} />
