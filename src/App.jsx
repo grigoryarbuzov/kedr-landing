@@ -137,20 +137,6 @@ function Contacts({ phone, address, schedule }) {
               <h3 className="font-semibold">Адрес</h3>
               <p className="mt-2 text-sm text-gray-700">{address}</p>
             </div>
-
-            <div className="p-4 bg-white rounded shadow sm:col-span-2">
-              <h3 className="font-semibold">Режим работы</h3>
-              <table className="w-full mt-3 text-sm">
-                <tbody>
-                  {Object.entries(schedule).map(([day, hours]) => (
-                    <tr key={day} className="border-t">
-                      <td className="py-2 font-medium w-36">{day}</td>
-                      <td className="py-2">{hours}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
           </div>
         </div>
 
@@ -244,7 +230,7 @@ export default function KedrLanding() {
     { title: "Аренда домика", desc: "Домик на 4 человека. Пятница, Суббота", price: "10000 ₽", unit: "день" },
     { title: "Аренда домика", desc: "Домик на 4 человека. Остальные дни", price: "8000 ₽", unit: "день" },
     { title: "Баня", desc: "В домике", price: "4000 ₽", unit: "дополнительная услуга" },
-    { title: "Купель", desc: "Открытая купель", price: "4000 ₽", unit: "дополнительная услуга" },
+    { title: "Купель", desc: "Открытая купель", price: "5000 ₽", unit: "дополнительная услуга" },
   ];
 
   const meta = {
