@@ -178,12 +178,12 @@ function Hero({ bg, titleLines, subtitle, scrolled, mounted }) {
       
       {/* МОБИЛЬНАЯ ВЕРСИЯ: Логотип по центру на весь экран с градиентом с двух сторон */}
       <div 
-        className={`lg:hidden absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-all ease-out w-full ${
+        className={`lg:hidden absolute left-1/2 -translate-x-1/2 transition-all ease-out w-full ${
           scrolled 
-            ? 'opacity-0 scale-75 duration-[2000ms] translate-y-[-60%]' 
+            ? 'opacity-0 scale-75 duration-[2000ms] top-[-20%]' 
             : mounted
-              ? 'opacity-100 scale-100 duration-1000 translate-y-0'
-              : 'opacity-0 scale-90 duration-0 translate-y-10'
+              ? 'opacity-100 scale-100 duration-1000 top-[35%] -translate-y-1/2'
+              : 'opacity-0 scale-90 duration-0 top-[20%]'
         }`}
       >
         {/* Градиент с ДВУХ сторон для мобильной версии */}
@@ -193,7 +193,7 @@ function Hero({ bg, titleLines, subtitle, scrolled, mounted }) {
           <img
             src="/logo.svg"
             alt="Логотип Кедр"
-            className="w-72 h-72 drop-shadow-2xl"
+            className="w-80 h-80 sm:w-96 sm:h-96 drop-shadow-2xl"
           />
         </div>
       </div>
@@ -222,10 +222,14 @@ function Hero({ bg, titleLines, subtitle, scrolled, mounted }) {
 
       {/* Контент */}
       <div className="container mx-auto relative z-10 px-6 md:px-8 lg:px-12">
-        {/* МОБИЛЬНАЯ ВЕРСИЯ: Текст внизу */}
+        {/* МОБИЛЬНАЯ ВЕРСИЯ: Текст внизу, уезжает ВНИЗ при появлении логотипа */}
         <div 
-          className={`lg:hidden absolute bottom-20 left-6 right-6 text-white transition-all duration-700 ${
-            scrolled ? 'opacity-0 translate-y-10' : 'opacity-100 translate-y-0'
+          className={`lg:hidden absolute left-6 right-6 text-white transition-all duration-1000 ease-out ${
+            mounted 
+              ? 'bottom-16 opacity-100' 
+              : 'bottom-1/2 translate-y-1/2 opacity-0'
+          } ${
+            scrolled ? 'opacity-0 translate-y-10' : ''
           }`}
         >
           <h1 className="text-3xl sm:text-4xl font-serif leading-tight drop-shadow-2xl" style={{ fontFamily: '"Great Vibes", cursive' }}>
