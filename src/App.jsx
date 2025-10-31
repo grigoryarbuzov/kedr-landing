@@ -176,9 +176,31 @@ function Hero({ bg, titleLines, subtitle, scrolled, mounted }) {
       {/* Темная вуаль на фоне */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/40 to-black/50" />
       
-      {/* ГИГАНТСКИЙ ЛОГОТИП с анимацией въезда справа на белой подложке */}
+      {/* МОБИЛЬНАЯ ВЕРСИЯ: Логотип по центру на весь экран с градиентом с двух сторон */}
       <div 
-        className={`absolute top-1/2 -translate-y-1/2 transition-all ease-out ${
+        className={`lg:hidden absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-all ease-out w-full ${
+          scrolled 
+            ? 'opacity-0 scale-75 duration-[2000ms] translate-y-[-60%]' 
+            : mounted
+              ? 'opacity-100 scale-100 duration-1000 translate-y-0'
+              : 'opacity-0 scale-90 duration-0 translate-y-10'
+        }`}
+      >
+        {/* Градиент с ДВУХ сторон для мобильной версии */}
+        <div className="absolute inset-0 -m-8 bg-gradient-to-r from-transparent via-white/70 to-transparent" />
+        
+        <div className="relative flex justify-center">
+          <img
+            src="/logo.svg"
+            alt="Логотип Кедр"
+            className="w-72 h-72 drop-shadow-2xl"
+          />
+        </div>
+      </div>
+
+      {/* ДЕСКТОПНАЯ ВЕРСИЯ: Логотип справа с градиентом слева */}
+      <div 
+        className={`hidden lg:block absolute top-1/2 -translate-y-1/2 transition-all ease-out ${
           scrolled 
             ? 'right-[-100%] opacity-0 scale-75 duration-[2000ms]' 
             : mounted
@@ -186,11 +208,10 @@ function Hero({ bg, titleLines, subtitle, scrolled, mounted }) {
               : 'right-[-100%] opacity-0 scale-90 duration-0'
         }`}
       >
-        {/* Белая градиентная подложка - ВОЗВРАЩАЕМ ПРЕЖНЮЮ ПРОЗРАЧНОСТЬ */}
+        {/* Белая градиентная подложка слева (десктоп) */}
         <div className="absolute inset-0 -m-16 md:-m-20 lg:-m-24 xl:-m-28 bg-gradient-to-l from-white/85 via-white/60 to-transparent rounded-3xl shadow-2xl" />
         
         <div className="relative">
-          {/* ПРОСТО ОГРОМНЫЙ ЛОГОТИП */}
           <img
             src="/logo.svg"
             alt="Логотип Кедр"
@@ -199,9 +220,38 @@ function Hero({ bg, titleLines, subtitle, scrolled, mounted }) {
         </div>
       </div>
 
-      {/* Контент слева */}
+      {/* Контент */}
       <div className="container mx-auto relative z-10 px-6 md:px-8 lg:px-12">
-        <div className="max-w-2xl text-white">
+        {/* МОБИЛЬНАЯ ВЕРСИЯ: Текст внизу */}
+        <div 
+          className={`lg:hidden absolute bottom-20 left-6 right-6 text-white transition-all duration-700 ${
+            scrolled ? 'opacity-0 translate-y-10' : 'opacity-100 translate-y-0'
+          }`}
+        >
+          <h1 className="text-3xl sm:text-4xl font-serif leading-tight drop-shadow-2xl" style={{ fontFamily: '"Great Vibes", cursive' }}>
+            {titleLines.map((l, i) => (
+              <span key={i} className="block">{l}</span>
+            ))}
+          </h1>
+          <p className="mt-4 text-base sm:text-lg leading-relaxed drop-shadow-lg">{subtitle}</p>
+          <div className="mt-6 flex flex-col sm:flex-row gap-3">
+            <a 
+              href="#contacts" 
+              className="bg-amber-400 text-black px-6 py-3 rounded-lg shadow-xl hover:bg-amber-500 transition-all text-center font-semibold"
+            >
+              Забронировать
+            </a>
+            <a 
+              href="#gallery" 
+              className="border-2 border-white/80 backdrop-blur-sm bg-white/10 px-6 py-3 rounded-lg hover:bg-white/20 transition-all text-center font-semibold"
+            >
+              Смотреть фото
+            </a>
+          </div>
+        </div>
+
+        {/* ДЕСКТОПНАЯ ВЕРСИЯ: Текст слева */}
+        <div className="hidden lg:block max-w-2xl text-white">
           <h1 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-serif leading-tight drop-shadow-2xl" style={{ fontFamily: '"Great Vibes", cursive' }}>
             {titleLines.map((l, i) => (
               <span key={i} className="block">{l}</span>
