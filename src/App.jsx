@@ -1,13 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import Gallery from './gallery'
+import Feedbacks from './Feedbacks'
 
-/* KedrLanding - single page component with improved header
-   - Meta small helper (sets title + metas)
-   - Professional Header with large logo
-   - Hero with background + calligraphic font
-   - Gallery carousel (arrows + touch)
-   - Contacts with Yandex iframe
-   - PriceList table
+/* KedrLanding - АНИМИРОВАННЫЙ ГИГАНТСКИЙ ЛОГОТИП
+   - Логотип выезжает справа на белой подложке
+   - При скролле уезжает обратно вправо
+   - Появляется в header
 */
 
 export function Meta({ title, description, keywords }) {
@@ -32,21 +30,12 @@ export function Meta({ title, description, keywords }) {
   return null;
 }
 
-function Header({ phone }) {
-  const [scrolled, setScrolled] = useState(false);
+function Header({ phone, scrolled }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   return (
     <header 
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled 
           ? 'bg-white/95 shadow-lg backdrop-blur-sm' 
           : 'bg-gradient-to-b from-black/60 to-transparent backdrop-blur-sm'
@@ -54,29 +43,30 @@ function Header({ phone }) {
     >
       <div className="container mx-auto px-4 md:px-8">
         <div className="flex items-center justify-between py-3 md:py-4">
-          {/* Логотип */}
-          <a href="#" className="flex items-center gap-3 group">
+          {/* Логотип появляется при скролле */}
+          <a 
+            href="#" 
+            className={`flex items-center gap-3 group relative transition-all duration-500 ${
+              scrolled ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4 pointer-events-none'
+            }`}
+          >
             <img
               src="/logo.svg"
               alt="Логотип Кедр"
-              className={`transition-all duration-300 ${
-                scrolled 
-                  ? 'w-12 h-12 md:w-16 md:h-16' 
-                  : 'w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24'
-              }`}
+              className="w-12 h-12 md:w-16 md:h-16 transition-all duration-300"
             />
-            <div className={`hidden md:block transition-all duration-300 ${scrolled ? 'text-gray-800' : 'text-white'}`}>
-              <div className="text-xl lg:text-2xl font-bold tracking-wide">КЕДР</div>
-              <div className="text-xs lg:text-sm opacity-80">База отдыха</div>
+            <div className="hidden md:block text-gray-800">
+              <div className="text-xl font-bold tracking-wide">КЕДР</div>
+              <div className="text-xs opacity-80">База отдыха</div>
             </div>
           </a>
 
-          {/* Навигация - Desktop */}
+          {/* Навигация */}
           <nav className="hidden md:flex items-center gap-6 lg:gap-8">
             <a 
               href="#gallery" 
               className={`transition-colors hover:text-amber-400 ${
-                scrolled ? 'text-gray-700' : 'text-white'
+                scrolled ? 'text-gray-700' : 'text-white drop-shadow-md'
               }`}
             >
               Галерея
@@ -84,7 +74,7 @@ function Header({ phone }) {
             <a 
               href="#prices" 
               className={`transition-colors hover:text-amber-400 ${
-                scrolled ? 'text-gray-700' : 'text-white'
+                scrolled ? 'text-gray-700' : 'text-white drop-shadow-md'
               }`}
             >
               Цены
@@ -92,20 +82,20 @@ function Header({ phone }) {
             <a 
               href="#contacts" 
               className={`transition-colors hover:text-amber-400 ${
-                scrolled ? 'text-gray-700' : 'text-white'
+                scrolled ? 'text-gray-700' : 'text-white drop-shadow-md'
               }`}
             >
               Контакты
             </a>
           </nav>
 
-          {/* Кнопка звонка - Desktop */}
+          {/* Кнопка звонка */}
           <a
             href={`tel:${phone}`}
             className={`hidden md:flex items-center gap-2 px-6 py-2.5 rounded-lg font-medium transition-all ${
               scrolled
                 ? 'bg-amber-400 text-black hover:bg-amber-500'
-                : 'bg-white/90 text-gray-800 hover:bg-white'
+                : 'bg-white/90 text-gray-800 hover:bg-white backdrop-blur-sm shadow-lg'
             }`}
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -118,7 +108,7 @@ function Header({ phone }) {
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className={`md:hidden p-2 rounded-lg transition-colors ${
-              scrolled ? 'text-gray-800 hover:bg-gray-100' : 'text-white hover:bg-white/10'
+              scrolled ? 'text-gray-800 hover:bg-gray-100' : 'text-white hover:bg-white/10 backdrop-blur-sm'
             }`}
             aria-label="Меню"
           >
@@ -172,10 +162,10 @@ function Header({ phone }) {
   );
 }
 
-function Hero({ bg, titleLines, subtitle }) {
+function Hero({ bg, titleLines, subtitle, scrolled, mounted }) {
   return (
     <section
-      className="relative h-screen min-h-[600px] flex items-center pt-20"
+      className="relative h-screen min-h-[600px] flex items-center overflow-hidden"
       style={{
         backgroundImage: `url(${bg})`,
         backgroundSize: "cover",
@@ -183,25 +173,51 @@ function Hero({ bg, titleLines, subtitle }) {
       }}
       aria-label="Главный блок — Кедр"
     >
+      {/* Темная вуаль на фоне */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/40 to-black/50" />
-      <div className="container mx-auto relative z-10 px-6 md:px-8">
-        <div className="max-w-3xl text-white">
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif leading-tight drop-shadow-2xl" style={{ fontFamily: '"Great Vibes", cursive' }}>
+      
+      {/* ГИГАНТСКИЙ ЛОГОТИП с анимацией въезда справа на белой подложке */}
+      <div 
+        className={`absolute top-1/2 -translate-y-1/2 transition-all ease-out ${
+          scrolled 
+            ? 'right-[-100%] opacity-0 scale-75 duration-[2000ms]' 
+            : mounted
+              ? 'right-8 md:right-16 lg:right-20 xl:right-24 opacity-100 scale-100 duration-1000'
+              : 'right-[-100%] opacity-0 scale-90 duration-0'
+        }`}
+      >
+        {/* Белая градиентная подложка - ВОЗВРАЩАЕМ ПРЕЖНЮЮ ПРОЗРАЧНОСТЬ */}
+        <div className="absolute inset-0 -m-16 md:-m-20 lg:-m-24 xl:-m-28 bg-gradient-to-l from-white/85 via-white/60 to-transparent rounded-3xl shadow-2xl" />
+        
+        <div className="relative">
+          {/* ПРОСТО ОГРОМНЫЙ ЛОГОТИП */}
+          <img
+            src="/logo.svg"
+            alt="Логотип Кедр"
+            className="w-64 h-64 md:w-96 md:h-96 lg:w-[500px] lg:h-[500px] xl:w-[600px] xl:h-[600px] drop-shadow-2xl"
+          />
+        </div>
+      </div>
+
+      {/* Контент слева */}
+      <div className="container mx-auto relative z-10 px-6 md:px-8 lg:px-12">
+        <div className="max-w-2xl text-white">
+          <h1 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-serif leading-tight drop-shadow-2xl" style={{ fontFamily: '"Great Vibes", cursive' }}>
             {titleLines.map((l, i) => (
               <span key={i} className="block">{l}</span>
             ))}
           </h1>
-          <p className="mt-8 text-xl md:text-2xl max-w-[80%] leading-relaxed drop-shadow-lg">{subtitle}</p>
-          <div className="mt-10 flex flex-wrap gap-4">
+          <p className="mt-6 md:mt-8 text-lg md:text-xl lg:text-2xl max-w-[85%] leading-relaxed drop-shadow-lg">{subtitle}</p>
+          <div className="mt-8 md:mt-10 flex flex-wrap gap-4">
             <a 
               href="#contacts" 
-              className="bg-amber-400 text-black px-8 py-4 rounded-lg shadow-xl hover:bg-amber-500 transition-all transform hover:scale-105 font-semibold text-lg"
+              className="bg-amber-400 text-black px-6 md:px-8 py-3 md:py-4 rounded-lg shadow-xl hover:bg-amber-500 transition-all transform hover:scale-105 font-semibold text-base md:text-lg"
             >
               Забронировать
             </a>
             <a 
               href="#gallery" 
-              className="border-2 border-white/80 backdrop-blur-sm bg-white/10 px-8 py-4 rounded-lg hover:bg-white/20 transition-all font-semibold text-lg"
+              className="border-2 border-white/80 backdrop-blur-sm bg-white/10 px-6 md:px-8 py-3 md:py-4 rounded-lg hover:bg-white/20 transition-all font-semibold text-base md:text-lg"
             >
               Смотреть фото
             </a>
@@ -210,7 +226,9 @@ function Hero({ bg, titleLines, subtitle }) {
       </div>
       
       {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+      <div className={`absolute bottom-8 left-1/2 -translate-x-1/2 transition-opacity duration-500 ${
+        scrolled ? 'opacity-0' : 'opacity-100 animate-bounce'
+      }`}>
         <svg className="w-6 h-6 text-white/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
         </svg>
@@ -220,61 +238,86 @@ function Hero({ bg, titleLines, subtitle }) {
 }
 
 function Contacts({ phone, address }) {
-  const yandexSrc = 'https://yandex.ru/map-widget/v1/?ll=83.175555%2C54.816703&mode=whatshere&whatshere%5Bpoint%5D=83.175555%2C54.816703%5Bzoom%5D=16.52&z=16.52'
-
   return (
-    <section id="contacts" className="py-16 md:py-20 bg-gradient-to-b from-white to-gray-50">
+    <section id="contacts" className="py-20 md:py-24 bg-gradient-to-b from-white to-gray-50">
       <div className="container mx-auto px-6 md:px-8">
-        <h2 className="text-3xl md:text-4xl font-bold mb-10 text-center">Контакты</h2>
+        <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">Контакты</h2>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="col-span-1 md:col-span-2 space-y-6">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <div className="p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center">
-                    <svg className="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                    </svg>
-                  </div>
-                  <h3 className="font-semibold text-lg">Телефон</h3>
+        <div className="max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* Телефон */}
+            <div className="p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center">
+                  <svg className="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                  </svg>
                 </div>
-                <a href={`tel:${phone}`} className="block text-2xl font-bold text-amber-600 hover:text-amber-700 transition-colors">{phone}</a>
-                <p className="mt-2 text-sm text-gray-600">Поддержка и бронирование</p>
+                <h3 className="font-semibold text-lg">Телефон</h3>
               </div>
-
-              <div className="p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-                    <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                  </div>
-                  <h3 className="font-semibold text-lg">Адрес</h3>
-                </div>
-                <p className="text-gray-700 leading-relaxed">{address}</p>
-              </div>
+              <a href={`tel:${phone}`} className="block text-2xl font-bold text-amber-600 hover:text-amber-700 transition-colors">{phone}</a>
+              <p className="mt-2 text-sm text-gray-600">Поддержка и бронирование</p>
             </div>
-          </div>
 
-          <div className="col-span-1">
-            <div className="sticky top-24">
-              <h3 className="font-semibold text-lg mb-4 flex items-center gap-2">
-                <svg className="w-5 h-5 text-red-500" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-                </svg>
-                Где мы находимся
-              </h3>
-              <div className="w-full h-80 rounded-xl overflow-hidden shadow-lg">
-                <iframe
-                  title="Карта — Кедр"
-                  src={yandexSrc}
-                  className="w-full h-full border-0"
-                  loading="lazy"
-                />
+            {/* Адрес */}
+            <div className="p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                  <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                </div>
+                <h3 className="font-semibold text-lg">Адрес</h3>
               </div>
-              <p className="text-xs text-gray-500 mt-3">Нажмите на карту, чтобы открыть в Яндекс.Картах</p>
+              <p className="text-gray-700 leading-relaxed">{address}</p>
+            </div>
+
+            {/* Соцсети */}
+            <div className="p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow sm:col-span-2 lg:col-span-1">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                  <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z" />
+                  </svg>
+                </div>
+                <h3 className="font-semibold text-lg">Наши соцсети</h3>
+              </div>
+              <div className="space-y-3">
+                <a 
+                  href="https://t.me/kedrbo" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-50 transition-colors group"
+                >
+                  <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.135-.954l11.566-4.458c.538-.196 1.006.128.832.941z"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <div className="font-medium text-gray-800">Telegram</div>
+                    <div className="text-sm text-gray-600">t.me/kedrbo</div>
+                  </div>
+                </a>
+                
+                <a 
+                  href="https://instagram.com/kedr.novosibirsk" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 p-3 rounded-lg hover:bg-pink-50 transition-colors group"
+                >
+                  <div className="w-10 h-10 bg-gradient-to-br from-purple-600 via-pink-600 to-orange-500 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <div className="font-medium text-gray-800">Instagram</div>
+                    <div className="text-sm text-gray-600">kedr.novosibirsk</div>
+                  </div>
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -285,9 +328,9 @@ function Contacts({ phone, address }) {
 
 function PriceList({ items }) {
   return (
-    <section id="prices" className="py-16 md:py-20 bg-white">
+    <section id="prices" className="py-20 md:py-24 bg-white">
       <div className="container mx-auto px-6 md:px-8">
-        <h2 className="text-3xl md:text-4xl font-bold mb-10 text-center">Прайс-лист</h2>
+        <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">Прайс-лист</h2>
 
         <div className="max-w-4xl mx-auto">
           <div className="overflow-hidden bg-white rounded-xl shadow-xl border border-gray-100">
@@ -314,13 +357,6 @@ function PriceList({ items }) {
               </tbody>
             </table>
           </div>
-
-          <div className="mt-8 p-6 bg-amber-50 rounded-xl border-l-4 border-amber-400">
-            <p className="text-gray-700">
-              <strong>Обратите внимание:</strong> Цены актуальны на {new Date().toLocaleDateString('ru-RU', { year: 'numeric', month: 'long' })}. 
-              Для уточнения деталей и бронирования позвоните нам!
-            </p>
-          </div>
         </div>
       </div>
     </section>
@@ -328,6 +364,24 @@ function PriceList({ items }) {
 }
 
 export default function KedrLanding() {
+  const [scrolled, setScrolled] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    // Запуск анимации въезда логотипа
+    const timer = setTimeout(() => setMounted(true), 100);
+    
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 100);
+    };
+    window.addEventListener("scroll", handleScroll);
+    
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   const heroBg = "/hero.png";
   const images = [
     "/1.jpg",
@@ -346,7 +400,7 @@ export default function KedrLanding() {
   ];
 
   const phone = "+7‑913‑136‑30‑71";
-  const address = "СНТ Вера 639/4, Новосибирский район, Новосибирская область";
+  const address = "СНТ Вера, Тихая улица, 17/2";
 
   const prices = [
     { title: "Аренда домика", desc: "Домик на 4 человека. Пятница, Суббота", price: "10000 ₽", unit: "день" },
@@ -368,13 +422,15 @@ export default function KedrLanding() {
     <div className="text-gray-800">
       <Meta title={meta.title} description={meta.description} keywords={meta.keywords} />
       
-      <Header phone={phone} />
+      <Header phone={phone} scrolled={scrolled} />
 
-      <Hero bg={heroBg} titleLines={heroText} subtitle={heroSubtitle} />
+      <Hero bg={heroBg} titleLines={heroText} subtitle={heroSubtitle} scrolled={scrolled} mounted={mounted} />
 
       <Gallery images={images} />
 
       <Contacts phone={phone} address={address} />
+
+      <Feedbacks />
 
       <PriceList items={prices} />
 

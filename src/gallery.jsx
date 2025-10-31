@@ -23,9 +23,9 @@ export default function Gallery({ images = [] }) {
 
   if (!Array.isArray(images) || images.length === 0) {
     return (
-      <section id="gallery" className="py-0 bg-gray-50">
+      <section id="gallery" className="py-20 md:py-24 bg-gray-50">
         <div className="container mx-auto px-6 md:px-8">
-          <h2 className="text-2xl font-semibold mb-6">Галерея базы "Кедр"</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">Галерея базы "Кедр"</h2>
           <div className="rounded-lg shadow bg-gray-200 h-64 flex items-center justify-center">
             <p className="text-gray-500">Нет изображений</p>
           </div>
@@ -35,9 +35,9 @@ export default function Gallery({ images = [] }) {
   }
 
   return (
-    <section id="gallery" className="py-0 bg-gray-50">
+    <section id="gallery" className="py-20 md:py-24 bg-gray-50">
       <div className="container mx-auto px-6 md:px-8">
-        <h2 className="text-2xl font-semibold mb-6">Галерея базы "Кедр"</h2>
+        <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">Галерея базы "Кедр"</h2>
 
         <div className="relative">
           <div ref={sliderRef} className="keen-slider relative">
