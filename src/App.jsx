@@ -221,15 +221,15 @@ function Hero({ bg, titleLines, subtitle, scrolled, mounted }) {
       </div>
 
       {/* Контент */}
-      <div className="container mx-auto relative z-10 px-6 md:px-8 lg:px-12">
-        {/* МОБИЛЬНАЯ ВЕРСИЯ: Текст внизу, уезжает ВНИЗ при появлении логотипа */}
+      <div className="container mx-auto relative z-10 px-6 md:px-8 lg:px-12 h-full">
+        {/* МОБИЛЬНАЯ ВЕРСИЯ: Текст начинается в центре, уезжает ВНИЗ */}
         <div 
           className={`lg:hidden absolute left-6 right-6 text-white transition-all duration-1000 ease-out ${
-            mounted 
-              ? 'bottom-16 opacity-100' 
-              : 'bottom-1/2 translate-y-1/2 opacity-0'
-          } ${
-            scrolled ? 'opacity-0 translate-y-10' : ''
+            !mounted 
+              ? 'top-1/2 -translate-y-1/2 opacity-0'
+              : scrolled
+                ? 'bottom-[-20%] opacity-0'
+                : 'bottom-12 sm:bottom-16 opacity-100'
           }`}
         >
           <h1 className="text-3xl sm:text-4xl font-serif leading-tight drop-shadow-2xl" style={{ fontFamily: '"Great Vibes", cursive' }}>
