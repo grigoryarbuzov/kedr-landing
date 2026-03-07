@@ -2,6 +2,36 @@
 @tailwind components;
 @tailwind utilities;
 
-/* small helper styles */
-body { @apply bg-white text-gray-800; }
+html { scroll-behavior: smooth; }
+body { @apply bg-cream-50 text-stone-800 font-sans; }
 .container { @apply max-w-6xl mx-auto; }
+
+/* Section reveal on scroll */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Hero logo entrance */
+@keyframes logoReveal {
+  0% { opacity: 0; transform: scale(0.8); }
+  100% { opacity: 1; transform: scale(1); }
+}
+.logo-reveal {
+  animation: logoReveal 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both;
+}
+
+/* Grain texture overlay for hero */
+.grain::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
