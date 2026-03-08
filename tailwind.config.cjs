@@ -48,22 +48,14 @@ module.exports = {
         },
       },
       animation: {
-        'pine-roll': 'pineRoll 2.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.5s both',
-        'fade-up': 'fadeUp 0.8s ease-out both',
+'fade-up': 'fadeUp 0.8s ease-out both',
         'fade-up-1': 'fadeUp 0.8s ease-out 0.3s both',
         'fade-up-2': 'fadeUp 0.8s ease-out 0.5s both',
         'fade-up-3': 'fadeUp 0.8s ease-out 0.7s both',
         'snow-fall': 'snowFall 12s linear infinite',
       },
       keyframes: {
-        pineRoll: {
-          '0%': { transform: 'translateX(100vw) rotate(0deg)', opacity: '0' },
-          '10%': { opacity: '0.7' },
-          '75%': { transform: 'translateX(0) rotate(-1080deg)' },
-          '88%': { transform: 'translateX(12px) rotate(-1100deg)' },
-          '100%': { transform: 'translateX(0) rotate(-1080deg)', opacity: '0.7' },
-        },
-        fadeUp: {
+fadeUp: {
           '0%': { opacity: '0', transform: 'translateY(30px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
         },

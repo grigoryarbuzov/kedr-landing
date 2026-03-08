@@ -79,32 +79,6 @@ function Snowflakes() {
   );
 }
 
-/* ===== PINE CONE SVG ===== */
-
-function PineCone({ className }) {
-  return (
-    <svg className={className} viewBox="0 0 64 88" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect x="28" y="2" width="8" height="12" rx="3" fill="#7a9bb5" />
-      <ellipse cx="32" cy="22" rx="8" ry="7" fill="#4B7BA8" />
-      <ellipse cx="24" cy="32" rx="9" ry="7" fill="#3a6290" />
-      <ellipse cx="40" cy="32" rx="9" ry="7" fill="#3a6290" />
-      <ellipse cx="32" cy="36" rx="10" ry="8" fill="#5ea8d9" />
-      <ellipse cx="22" cy="46" rx="10" ry="8" fill="#3a6290" />
-      <ellipse cx="42" cy="46" rx="10" ry="8" fill="#3a6290" />
-      <ellipse cx="32" cy="50" rx="12" ry="9" fill="#4B7BA8" />
-      <ellipse cx="24" cy="60" rx="10" ry="8" fill="#5ea8d9" />
-      <ellipse cx="40" cy="60" rx="10" ry="8" fill="#5ea8d9" />
-      <ellipse cx="32" cy="64" rx="11" ry="8" fill="#3a6290" />
-      <ellipse cx="32" cy="76" rx="8" ry="7" fill="#4B7BA8" />
-      <ellipse cx="32" cy="84" rx="5" ry="4" fill="#5ea8d9" />
-      {/* Snow caps */}
-      <ellipse cx="32" cy="18" rx="10" ry="4" fill="white" opacity="0.8" />
-      <ellipse cx="32" cy="46" rx="14" ry="3" fill="white" opacity="0.5" />
-      <ellipse cx="32" cy="72" rx="10" ry="3" fill="white" opacity="0.4" />
-    </svg>
-  );
-}
-
 /* ===== HEADER ===== */
 
 function Header({ phone, scrolled }) {
@@ -258,13 +232,6 @@ function Hero({ phone, mounted }) {
         </div>
       </div>
 
-      {/* Pine cone rolling in */}
-      {mounted && (
-        <div className="absolute bottom-16 sm:bottom-20 right-8 sm:right-16 md:right-24 animate-pine-roll pointer-events-none z-30">
-          <PineCone className="w-10 h-14 sm:w-12 sm:h-16 md:w-14 md:h-20 drop-shadow-lg" />
-        </div>
-      )}
-
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2 animate-bounce z-30">
         <svg className="w-5 h-5 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
@@ -279,13 +246,13 @@ function Hero({ phone, mounted }) {
 const FEATURES = [
   {
     icon: <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1" /></svg>,
-    title: "Уютные домики",
-    desc: "Тёплый дом 36 м\u00B2 на 4 человека — 2 комнаты, кухня, санузел, всё для комфорта",
+    title: "Уютный домик",
+    desc: "36 м², 2 комнаты, тёплые полы, полностью оборудованная кухня. Построен в 2025 году",
   },
   {
     icon: <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z" /></svg>,
-    title: "Русская баня",
-    desc: "Настоящая русская баня в домике — жаркий пар, берёзовые веники, контраст со снегом",
+    title: "Баня в домике",
+    desc: "Сауна прямо в доме — из парной можно выйти на улицу. Берёзовые веники, жаркий пар",
   },
   {
     icon: <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>,
@@ -295,7 +262,7 @@ const FEATURES = [
   {
     icon: <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" /></svg>,
     title: "Природа и тишина",
-    desc: "Кедровый лес, свежий морозный воздух, звёздное небо — настоящая сибирская зима",
+    desc: "100 соток на краю леса, мало соседей. Грибные места, озеро, река — и всё это в 29 км от центра",
   },
 ];
 
@@ -438,11 +405,16 @@ function Conditions() {
   const ref = useInView();
   const rules = [
     "Заезд с 14:00, выезд до 12:00",
-    "С домашними животными — по согласованию",
+    "Без животных",
+    "Без курения в помещении",
+    "Без шумных вечеринок",
     "Постельное бельё и полотенца включены",
     "Бесплатная парковка на территории",
     "Мангальная зона в свободном доступе",
     "Тишина после 23:00",
+    "Максимум 4 гостя",
+    "Залог 7 000 ₽ (возвращается при выезде)",
+    "Дети — приветствуются",
   ];
 
   return (
@@ -596,10 +568,7 @@ export default function KedrLanding() {
   const address = "СНТ Вера, Тихая улица, 17/2";
 
   const prices = [
-    { title: "Аренда домика", desc: "Домик на 4 человека. Пятница, Суббота", price: "10 000 \u20BD", unit: "за сутки" },
-    { title: "Аренда домика", desc: "Домик на 4 человека. Будние дни", price: "8 000 \u20BD", unit: "за сутки" },
-    { title: "Баня", desc: "Русская баня в домике", price: "4 000 \u20BD", unit: "доп. услуга" },
-    { title: "Купель", desc: "Открытая купель на улице", price: "5 000 \u20BD", unit: "доп. услуга" },
+    { title: "Аренда домика с баней и купелью", desc: "Домик на 4 человека, баня, купель, мангал, территория 100 соток", price: "от 9 000 ₽", unit: "за сутки" },
   ];
 
   const meta = {
