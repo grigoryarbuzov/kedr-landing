@@ -109,6 +109,7 @@ function Header({ phone, scrolled }) {
           <nav className="hidden md:flex items-center gap-8">
             {[
               ["#features", "О нас"],
+              ["#gallery", "Галерея"],
               ["#prices", "Цены"],
               ["#reviews", "Отзывы"],
               ["#contacts", "Контакты"],
@@ -163,6 +164,7 @@ function Header({ phone, scrolled }) {
             <nav className="flex flex-col gap-2">
               {[
                 ["#features", "О нас"],
+                ["#gallery", "Галерея"],
                 ["#prices", "Цены"],
                 ["#reviews", "Отзывы"],
                 ["#contacts", "Контакты"],
@@ -191,6 +193,106 @@ function Header({ phone, scrolled }) {
   );
 }
 
+/* ===== GALLERY ===== */
+
+const GALLERY_IMAGES = [
+  { src: "/gallery/cabin-night.jpg", alt: "Домик вечером", span: "col-span-2 row-span-2" },
+  { src: "/gallery/sunset.jpg", alt: "Закат на базе", span: "col-span-1 row-span-1" },
+  { src: "/gallery/starry-night.jpg", alt: "Звёздное небо", span: "col-span-1 row-span-1" },
+  { src: "/gallery/pines-winter.jpg", alt: "Сосны зимой", span: "col-span-1 row-span-2" },
+  { src: "/gallery/owl.jpg", alt: "Сова на дереве", span: "col-span-1 row-span-1" },
+  { src: "/gallery/snow-landscape.jpg", alt: "Зимний пейзаж", span: "col-span-1 row-span-1" },
+  { src: "/gallery/snowy-pines.jpg", alt: "Заснеженные сосны", span: "col-span-1 row-span-1" },
+];
+
+function Gallery() {
+  const ref = useInView();
+  const [lightbox, setLightbox] = useState(null);
+
+  return (
+    <section id="gallery" className="py-20 md:py-28 bg-white">
+      <div ref={ref} className="container mx-auto px-6 md:px-8 reveal">
+        <h2 className="text-3xl md:text-4xl font-serif font-bold text-center text-forest-800 mb-4">
+          Галерея
+        </h2>
+        <p className="text-center text-stone-500 max-w-lg mx-auto mb-14">
+          Атмосфера базы отдыха «Кедр» в&nbsp;фотографиях
+        </p>
+
+        {/* Masonry grid */}
+        <div className="grid grid-cols-2 md:grid-cols-3 auto-rows-[200px] md:auto-rows-[240px] gap-3 md:gap-4">
+          {GALLERY_IMAGES.map((img, i) => (
+            <div
+              key={i}
+              className={`${img.span} relative rounded-2xl overflow-hidden cursor-pointer group`}
+              onClick={() => setLightbox(i)}
+            >
+              <img
+                src={img.src}
+                alt={img.alt}
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
+              <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <span className="text-white text-sm font-medium">{img.alt}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Lightbox */}
+      {lightbox !== null && (
+        <div
+          className="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4 md:p-8"
+          onClick={() => setLightbox(null)}
+        >
+          <button
+            className="absolute top-6 right-6 text-white/70 hover:text-white transition-colors"
+            onClick={() => setLightbox(null)}
+            aria-label="Закрыть"
+          >
+            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+
+          {/* Prev */}
+          <button
+            className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 text-white/60 hover:text-white transition-colors"
+            onClick={(e) => { e.stopPropagation(); setLightbox((lightbox - 1 + GALLERY_IMAGES.length) % GALLERY_IMAGES.length); }}
+            aria-label="Назад"
+          >
+            <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+
+          {/* Image */}
+          <img
+            src={GALLERY_IMAGES[lightbox].src}
+            alt={GALLERY_IMAGES[lightbox].alt}
+            className="max-w-full max-h-[85vh] object-contain rounded-lg shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          />
+
+          {/* Next */}
+          <button
+            className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 text-white/60 hover:text-white transition-colors"
+            onClick={(e) => { e.stopPropagation(); setLightbox((lightbox + 1) % GALLERY_IMAGES.length); }}
+            aria-label="Вперёд"
+          >
+            <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+        </div>
+      )}
+    </section>
+  );
+}
+
 /* ===== HERO ===== */
 
 function Hero({ phone, mounted }) {
@@ -203,30 +305,34 @@ function Hero({ phone, mounted }) {
         backgroundPosition: "center",
       }}
     >
-      {/* Video background — falls back to hero.png if missing */}
+      {/* Video background with blur */}
       <video
         autoPlay
         muted
         loop
         playsInline
-        className="absolute inset-0 w-full h-full object-cover"
+        className="absolute inset-0 w-full h-full object-cover scale-110 blur-sm"
       >
-        <source src="/fire.mp4" type="video/mp4" />
-        <source src="/fire.webm" type="video/webm" />
+        <source src="/hero-video.mp4" type="video/mp4" />
       </video>
 
       {/* Dark atmospheric overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/50 to-forest-900/80" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/50 to-forest-900/80" />
 
       {/* Content */}
       <div className="relative z-10 text-center px-6 max-w-3xl">
-        {/* Logo */}
+        {/* Logo with glow backdrop */}
         <div className={mounted ? "logo-reveal" : "opacity-0"}>
-          <img
-            src="/logo.svg"
-            alt="Кедр — база отдыха"
-            className="w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 mx-auto drop-shadow-2xl"
-          />
+          <div className="relative inline-block">
+            {/* Warm radial glow behind logo */}
+            <div className="absolute inset-0 -m-8 md:-m-12 bg-gold-400/15 rounded-full blur-3xl" />
+            <div className="absolute inset-0 -m-4 md:-m-6 bg-black/30 rounded-full blur-2xl" />
+            <img
+              src="/logo.svg"
+              alt="Кедр — база отдыха"
+              className="relative w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 mx-auto drop-shadow-[0_0_40px_rgba(200,164,92,0.4)]"
+            />
+          </div>
         </div>
 
         {/* Text */}
@@ -581,6 +687,7 @@ export default function KedrLanding() {
       <Header phone={phone} scrolled={scrolled} />
       <Hero phone={phone} mounted={mounted} />
       <Features />
+      <Gallery />
       <PriceList items={prices} />
       <div id="reviews">
         <Feedbacks />
