@@ -115,8 +115,8 @@ function Header({ phone, scrolled }) {
           >
             <img src="/logo-winter.png" alt="Кедр" className="w-11 h-11 md:w-14 md:h-14 object-contain" />
             <div className="hidden md:block">
-              <div className="text-lg font-hero font-bold text-frost-800 tracking-wider" style={{ WebkitTextStroke: '0.5px white', paintOrder: 'stroke fill' }}>КЕДР</div>
-              <div className="text-xs text-frost-500 tracking-wide" style={{ WebkitTextStroke: '0.3px white', paintOrder: 'stroke fill' }}>База отдыха</div>
+              <div className="text-lg font-hero font-bold text-frost-800 tracking-wider" style={{ textShadow: '-1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white' }}>КЕДР</div>
+              <div className="text-xs text-frost-500 tracking-wide" style={{ textShadow: '-0.5px -0.5px 0 white, 0.5px -0.5px 0 white, -0.5px 0.5px 0 white, 0.5px 0.5px 0 white' }}>База отдыха</div>
             </div>
           </a>
 
@@ -195,16 +195,16 @@ function Hero({ phone, mounted }) {
       <Snowflakes />
 
       {/* Content */}
-      <div className="relative z-30 text-center px-6 max-w-3xl">
+      <div className="relative z-30 text-center px-6 max-w-3xl pt-16 md:pt-20">
         <div className={mounted ? "logo-reveal" : "opacity-0"}>
           <div className="relative inline-block">
             {/* Frost glow behind logo */}
-            <div className="absolute inset-0 -m-10 md:-m-16 bg-frost-400/10 rounded-full blur-3xl" />
-            <div className="absolute inset-0 -m-6 md:-m-8 bg-frost-900/25 rounded-full blur-2xl" />
+            <div className="absolute inset-0 -m-8 md:-m-12 bg-frost-400/10 rounded-full blur-3xl" />
+            <div className="absolute inset-0 -m-4 md:-m-6 bg-frost-900/25 rounded-full blur-2xl" />
             <img
               src="/logo-winter.png"
               alt="Кедр — база отдыха"
-              className="relative w-52 h-52 sm:w-64 sm:h-64 md:w-80 md:h-80 lg:w-[360px] lg:h-[360px] mx-auto drop-shadow-[0_0_50px_rgba(75,123,168,0.35)] object-contain"
+              className="relative w-44 h-44 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-72 lg:h-72 mx-auto drop-shadow-[0_0_40px_rgba(75,123,168,0.35)] object-contain"
             />
           </div>
         </div>
@@ -527,8 +527,8 @@ function Footer({ phone }) {
           <div className="flex items-center gap-3">
             <img src="/logo-winter.png" alt="Кедр" className="w-10 h-10 object-contain" />
             <div>
-              <span className="text-lg font-hero font-bold text-white tracking-wider" style={{ WebkitTextStroke: '0.5px white', paintOrder: 'stroke fill' }}>КЕДР</span>
-              <span className="text-sm text-frost-300 ml-2" style={{ WebkitTextStroke: '0.3px white', paintOrder: 'stroke fill' }}>База отдыха</span>
+              <span className="text-lg font-hero font-bold text-white tracking-wider" style={{ textShadow: '-1px -1px 0 rgba(255,255,255,0.5), 1px -1px 0 rgba(255,255,255,0.5), -1px 1px 0 rgba(255,255,255,0.5), 1px 1px 0 rgba(255,255,255,0.5)' }}>КЕДР</span>
+              <span className="text-sm text-frost-300 ml-2" style={{ textShadow: '-0.5px -0.5px 0 rgba(255,255,255,0.3), 0.5px -0.5px 0 rgba(255,255,255,0.3), -0.5px 0.5px 0 rgba(255,255,255,0.3), 0.5px 0.5px 0 rgba(255,255,255,0.3)' }}>База отдыха</span>
             </div>
           </div>
           <div className="flex items-center gap-6 text-sm">
