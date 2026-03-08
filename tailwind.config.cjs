@@ -7,6 +7,7 @@ module.exports = {
     extend: {
       fontFamily: {
         display: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+        hero: ['"Playfair Display"', 'Georgia', 'serif'],
         body: ['"Source Sans 3"', 'system-ui', 'sans-serif'],
       },
       colors: {
