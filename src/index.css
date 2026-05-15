@@ -37,18 +37,3 @@ body { @apply bg-snow-50 text-frost-900 font-body; }
   mix-blend-mode: overlay;
 }
 
-/* Snowflakes */
-.snowflake {
-  position: absolute;
-  color: white;
-  opacity: 0;
-  pointer-events: none;
-  font-size: 14px;
-  animation: snowDrift linear infinite;
-}
-@keyframes snowDrift {
-  0% { transform: translateY(-5vh) rotate(0deg); opacity: 0; }
-  5% { opacity: 0.7; }
-  95% { opacity: 0.5; }
-  100% { transform: translateY(105vh) rotate(360deg); opacity: 0; }
-}

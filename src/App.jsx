@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useMemo } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Feedbacks from "./Feedbacks";
 
 /* ===== HOOKS ===== */
@@ -44,41 +44,6 @@ function Meta({ title, description, keywords }) {
   return null;
 }
 
-/* ===== SNOWFLAKES ===== */
-
-function Snowflakes() {
-  const flakes = useMemo(() =>
-    Array.from({ length: 25 }, (_, i) => ({
-      id: i,
-      left: `${Math.random() * 100}%`,
-      delay: `${Math.random() * 10}s`,
-      duration: `${8 + Math.random() * 8}s`,
-      size: `${8 + Math.random() * 10}px`,
-      opacity: 0.3 + Math.random() * 0.5,
-    })),
-    []
-  );
-  return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none z-20">
-      {flakes.map((f) => (
-        <div
-          key={f.id}
-          className="snowflake"
-          style={{
-            left: f.left,
-            animationDelay: f.delay,
-            animationDuration: f.duration,
-            fontSize: f.size,
-            opacity: f.opacity,
-          }}
-        >
-          *
-        </div>
-      ))}
-    </div>
-  );
-}
-
 /* ===== HEADER ===== */
 
 function Header({ phone, scrolled }) {
@@ -113,7 +78,7 @@ function Header({ phone, scrolled }) {
               scrolled ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4 pointer-events-none"
             }`}
           >
-            <img src="/logo-winter.png" alt="Кедр" className="w-11 h-11 md:w-14 md:h-14 object-contain" />
+            <img src="/logo.svg" alt="Кедр" className="w-11 h-11 md:w-14 md:h-14 object-contain" />
             <div className="hidden md:block">
               <div className="text-lg font-hero font-bold text-frost-800 tracking-wider" style={{ textShadow: '-1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white' }}>КЕДР</div>
               <div className="text-xs text-frost-500 tracking-wide" style={{ textShadow: '-0.5px -0.5px 0 white, 0.5px -0.5px 0 white, -0.5px 0.5px 0 white, 0.5px 0.5px 0 white' }}>База отдыха</div>
@@ -182,7 +147,7 @@ function Hero({ phone, mounted }) {
   return (
     <section
       className="relative h-screen min-h-[640px] flex items-center justify-center overflow-hidden frost-grain"
-      style={{ backgroundImage: "url(/hero.png)", backgroundSize: "cover", backgroundPosition: "center" }}
+      style={{ backgroundImage: "url(/hero.jpg)", backgroundSize: "cover", backgroundPosition: "center" }}
     >
       {/* Overlay — soft gradient for text legibility */}
       <div className="absolute inset-0 bg-gradient-to-b from-frost-900/30 via-frost-800/40 to-frost-900/60" />
@@ -195,7 +160,7 @@ function Hero({ phone, mounted }) {
             <div className="absolute inset-0 -m-8 md:-m-12 bg-frost-400/10 rounded-full blur-3xl" />
             <div className="absolute inset-0 -m-4 md:-m-6 bg-frost-900/25 rounded-full blur-2xl" />
             <img
-              src="/logo-winter.png"
+              src="/logo.svg"
               alt="Кедр — база отдыха"
               className="relative w-44 h-44 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-72 lg:h-72 mx-auto drop-shadow-[0_0_40px_rgba(75,123,168,0.35)] object-contain"
             />
@@ -292,13 +257,13 @@ function Features() {
 /* ===== GALLERY ===== */
 
 const GALLERY_IMAGES = [
-  { src: "/gallery/cabin-night.jpg", alt: "Домик вечером", span: "col-span-2 row-span-2" },
-  { src: "/gallery/sunset.jpg", alt: "Закат на базе", span: "col-span-1 row-span-1" },
-  { src: "/gallery/starry-night.jpg", alt: "Звёздное небо", span: "col-span-1 row-span-1" },
-  { src: "/gallery/pines-winter.jpg", alt: "Сосны зимой", span: "col-span-1 row-span-2" },
-  { src: "/gallery/owl.jpg", alt: "Сова на дереве", span: "col-span-1 row-span-1" },
-  { src: "/gallery/snow-landscape.jpg", alt: "Зимний пейзаж", span: "col-span-1 row-span-1" },
-  { src: "/gallery/snowy-pines.jpg", alt: "Заснеженные сосны", span: "col-span-1 row-span-1" },
+  { src: "/gallery/summer-table.jpg", alt: "Накрытый стол на террасе", span: "col-span-2 row-span-2" },
+  { src: "/gallery/cabin-pines.jpg",  alt: "Домик среди сосен",        span: "col-span-1 row-span-1" },
+  { src: "/gallery/wildflowers.jpg",  alt: "Букет полевых цветов",     span: "col-span-1 row-span-1" },
+  { src: "/gallery/window-view.jpg",  alt: "Вид из окна на лес",       span: "col-span-1 row-span-2" },
+  { src: "/gallery/path-cabins.jpg",  alt: "Аллея к домикам",          span: "col-span-1 row-span-1" },
+  { src: "/gallery/bathroom.jpg",     alt: "Санузел в домике",         span: "col-span-1 row-span-1" },
+  { src: "/gallery/young-leaves.jpg", alt: "Молодая листва",           span: "col-span-1 row-span-1" },
 ];
 
 function Gallery() {
@@ -518,7 +483,7 @@ function Footer({ phone }) {
       <div className="container mx-auto px-6 md:px-8">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-3">
-            <img src="/logo-winter.png" alt="Кедр" className="w-10 h-10 object-contain" />
+            <img src="/logo.svg" alt="Кедр" className="w-10 h-10 object-contain" />
             <div>
               <span className="text-lg font-hero font-bold text-white tracking-wider" style={{ textShadow: '-1px -1px 0 rgba(255,255,255,0.5), 1px -1px 0 rgba(255,255,255,0.5), -1px 1px 0 rgba(255,255,255,0.5), 1px 1px 0 rgba(255,255,255,0.5)' }}>КЕДР</span>
               <span className="text-sm text-frost-300 ml-2" style={{ textShadow: '-0.5px -0.5px 0 rgba(255,255,255,0.3), 0.5px -0.5px 0 rgba(255,255,255,0.3), -0.5px 0.5px 0 rgba(255,255,255,0.3), 0.5px 0.5px 0 rgba(255,255,255,0.3)' }}>База отдыха</span>
