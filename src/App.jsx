@@ -184,15 +184,8 @@ function Hero({ phone, mounted }) {
       className="relative h-screen min-h-[640px] flex items-center justify-center overflow-hidden frost-grain"
       style={{ backgroundImage: "url(/hero.png)", backgroundSize: "cover", backgroundPosition: "center" }}
     >
-      <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover scale-110 blur-[2px]">
-        <source src="/hero-video.mp4" type="video/mp4" />
-      </video>
-
-      {/* Winter overlay — deep blue gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-frost-900/40 via-frost-800/50 to-frost-900/80" />
-
-      {/* Snowflakes */}
-      <Snowflakes />
+      {/* Overlay — soft gradient for text legibility */}
+      <div className="absolute inset-0 bg-gradient-to-b from-frost-900/30 via-frost-800/40 to-frost-900/60" />
 
       {/* Content */}
       <div className="relative z-30 text-center px-6 max-w-3xl pt-16 md:pt-20">
@@ -219,7 +212,7 @@ function Hero({ phone, mounted }) {
         </h1>
 
         <p className={`mt-4 md:mt-6 text-base sm:text-lg md:text-xl text-frost-200/90 max-w-xl mx-auto leading-relaxed font-light ${mounted ? "animate-fade-up-2" : "opacity-0"}`}>
-          Уютная база отдыха с баней, домиками и купелью в&nbsp;окружении сибирской зимней природы
+          Уютная база отдыха с баней, домиками и купелью в&nbsp;окружении сибирской природы
         </p>
 
         <div className={`mt-8 md:mt-10 flex flex-col sm:flex-row justify-center gap-4 ${mounted ? "animate-fade-up-3" : "opacity-0"}`}>
@@ -277,7 +270,7 @@ function Features() {
           Что вас ждёт
         </h2>
         <p className="text-center text-frost-500 max-w-lg mx-auto mb-14 font-light">
-          Всё для настоящего отдыха — в окружении зимней сибирской природы
+          Всё для настоящего отдыха — в окружении живописной сибирской природы
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
@@ -404,7 +397,7 @@ function PriceList({ items }) {
 function Conditions() {
   const ref = useInView();
   const rules = [
-    "Заезд с 14:00, выезд до 12:00",
+    "Заезд с 15:00, выезд до 12:00",
     "Без животных",
     "Без курения в помещении",
     "Без шумных вечеринок",
@@ -561,15 +554,15 @@ export default function KedrLanding() {
   const address = "СНТ Вера, Тихая улица, 17/2";
 
   const prices = [
-    { title: "Аренда домика", desc: "Уютный дом на 4 человека, мангал, территория 100 соток", price: "9 000 ₽", unit: "за сутки" },
-    { title: "Баня", desc: "Русская баня в домике — жаркий пар", price: "5 000 ₽", unit: "доп. услуга" },
+    { title: "Аренда домика", desc: "Дом на 4 человек, мангал, территория 100 соток. Будни — 9 000 ₽, выходные и праздники — 11 000 ₽", price: "9 000 / 11 000 ₽", unit: "будни / выходные" },
+    { title: "Баня", desc: "Русская баня в домике — жаркий пар", price: "3 000 ₽", unit: "доп. услуга" },
     { title: "Купель", desc: "Открытая купель на свежем воздухе", price: "5 000 ₽", unit: "доп. услуга" },
   ];
 
   const meta = {
     title: "Кедр — база отдыха | Баня, домик, купель | Новосибирск",
-    description: "Кедр — уютная база отдыха с баней, домиками и купелью в зимнем сибирском лесу. Забронируй отдых под Новосибирском!",
-    keywords: "база отдыха, баня, домик, купель, Кедр, Новосибирск, зимний отдых, аренда домика, отдых на природе",
+    description: "Кедр — уютная база отдыха с баней, домиками и купелью в сибирском лесу. Забронируй отдых под Новосибирском!",
+    keywords: "база отдыха, баня, домик, купель, Кедр, Новосибирск, аренда домика, отдых на природе",
   };
 
   return (
