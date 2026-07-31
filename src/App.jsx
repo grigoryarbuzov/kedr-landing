@@ -55,6 +55,7 @@ function Header({ phone, scrolled }) {
 
   const navItems = [
     ["#features", "О нас"],
+    ["#accommodation", "Размещение"],
     ["#gallery", "Галерея"],
     ["#prices", "Цены"],
     ["#conditions", "Условия"],
@@ -264,6 +265,9 @@ const GALLERY_IMAGES = [
   { src: "/gallery/path-cabins.jpg",  alt: "Аллея к домикам",          span: "col-span-1 row-span-1" },
   { src: "/gallery/bathroom.jpg",     alt: "Санузел в домике",         span: "col-span-1 row-span-1" },
   { src: "/gallery/young-leaves.jpg", alt: "Молодая листва",           span: "col-span-1 row-span-1" },
+  { src: "/objects/pool-1.jpg",       alt: "Бассейн на территории",    span: "col-span-1 row-span-2" },
+  { src: "/objects/besedka-1.jpg",    alt: "Беседка с мангальной зоной", span: "col-span-1 row-span-1" },
+  { src: "/objects/cabin2-living.jpg", alt: "Гостиная в новом домике",  span: "col-span-1 row-span-1" },
 ];
 
 function Gallery() {
@@ -314,6 +318,240 @@ function Gallery() {
           </button>
           <img src={GALLERY_IMAGES[lightbox].src} alt={GALLERY_IMAGES[lightbox].alt} className="max-w-full max-h-[85vh] object-contain rounded-lg shadow-2xl" onClick={(e) => e.stopPropagation()} />
           <button className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 text-white/50 hover:text-white transition-colors" onClick={(e) => { e.stopPropagation(); setLightbox((lightbox + 1) % GALLERY_IMAGES.length); }} aria-label="Вперёд">
+            <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+          </button>
+        </div>
+      )}
+    </section>
+  );
+}
+
+/* ===== ACCOMMODATION (объекты с раскрытием) ===== */
+
+const OBJECTS = [
+  {
+    id: "cabin2",
+    name: "Домик №2",
+    tag: "Новый",
+    cover: "/objects/cabin2-terrace.jpg",
+    short: "Уютный домик до 4 гостей с террасой, кухней и бесплатным бассейном",
+    price: "от 7 000 ₽",
+    priceUnit: "за сутки",
+    features: [
+      "До 4 гостей: двуспальная кровать + диван (ещё два места)",
+      "Кухонная зона со всей посудой и холодильником",
+      "Душ и туалет",
+      "Телевизор для уютных вечеров",
+      "Тёплая гостиная зона",
+      "Терраса с видом на лес",
+      "Мангальная зона",
+      "Бесплатный доступ к большому бассейну",
+    ],
+    photos: [
+      "/objects/cabin2-terrace.jpg",
+      "/objects/cabin2-living.jpg",
+      "/objects/cabin2-bed.jpg",
+      "/objects/cabin2-bed2.jpg",
+      "/objects/cabin2-kitchen.jpg",
+      "/objects/cabin2-kitchen2.jpg",
+      "/objects/cabin2-bath.jpg",
+      "/objects/cabin2-shower.jpg",
+      "/objects/cabin2-terrace2.jpg",
+    ],
+    rates: [
+      { label: "Посуточно, будни и воскресенье", value: "7 000 ₽" },
+      { label: "Посуточно, пятница и суббота", value: "8 000 ₽" },
+      { label: "Почасово, пт-сб-вс, 1-5 час", value: "1 200 ₽ / час" },
+      { label: "Почасово, будни, 1-5 час", value: "1 000 ₽ / час" },
+      { label: "Почасово, с 6-го часа", value: "800 ₽ / час" },
+    ],
+    note: "Домик можно снять посуточно или по часам — в том числе как уличную беседку с тёплой кухонной и гостиной зоной.",
+  },
+  {
+    id: "besedka",
+    name: "Беседка",
+    tag: "Новинка",
+    cover: "/objects/besedka-1.jpg",
+    short: "Просторная беседка до 25 гостей с мангальной зоной и видом на лес",
+    price: "от 800 ₽",
+    priceUnit: "за час",
+    features: [
+      "Вместимость до 25 человек",
+      "Удобная мангальная зона",
+      "Санузел с раковиной",
+      "Завораживающий вид на природу",
+      "Бесплатный доступ к бассейну при бронировании",
+    ],
+    photos: [
+      "/objects/besedka-1.jpg",
+      "/objects/besedka-2.jpg",
+      "/objects/besedka-3.jpg",
+      "/objects/besedka-4.jpg",
+    ],
+    rates: [
+      { label: "Будние дни", value: "1 000 ₽ / час" },
+      { label: "Пт, сб, вс и праздники", value: "1 200 ₽ / час" },
+      { label: "С 6-го часа", value: "800 ₽ / час" },
+    ],
+    note: "",
+  },
+  {
+    id: "pool",
+    name: "Бассейн",
+    tag: "Бесплатно",
+    cover: "/objects/pool-1.jpg",
+    short: "Большой открытый бассейн для гостей — бесплатно",
+    price: "0 ₽",
+    priceUnit: "для гостей",
+    features: [
+      "Большой открытый бассейн",
+      "Бесплатно для гостей наших домиков",
+      "Доступен при бронировании беседки",
+      "Чистая вода, зона отдыха у воды",
+    ],
+    photos: [
+      "/objects/pool-1.jpg",
+      "/objects/pool-2.jpg",
+      "/objects/pool-3.jpg",
+    ],
+    rates: [],
+    note: "",
+  },
+];
+
+function Accommodation() {
+  const ref = useInView();
+  const [open, setOpen] = useState("cabin2");
+  const [lightbox, setLightbox] = useState(null); // { photos, i }
+
+  useEffect(() => {
+    if (!lightbox) return;
+    const onKey = (e) => {
+      if (e.key === "Escape") setLightbox(null);
+      if (e.key === "ArrowLeft") setLightbox((p) => ({ ...p, i: (p.i - 1 + p.photos.length) % p.photos.length }));
+      if (e.key === "ArrowRight") setLightbox((p) => ({ ...p, i: (p.i + 1) % p.photos.length }));
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [lightbox]);
+
+  return (
+    <section id="accommodation" className="py-20 md:py-28 bg-white relative overflow-hidden">
+      <div ref={ref} className="container mx-auto px-6 md:px-8 reveal relative">
+        <h2 className="text-3xl md:text-4xl font-display font-bold text-center text-frost-800 mb-3 tracking-wide">
+          Размещение и услуги
+        </h2>
+        <p className="text-center text-frost-500 max-w-lg mx-auto mb-14 font-light">
+          Домики, беседка и бассейн — выберите свой формат отдыха
+        </p>
+
+        <div className="max-w-4xl mx-auto space-y-5">
+          {OBJECTS.map((o) => {
+            const isOpen = open === o.id;
+            return (
+              <div key={o.id} className="rounded-2xl border border-frost-100 bg-snow-50 overflow-hidden transition-all duration-300 hover:border-frost-300">
+                {/* Заголовок-обложка, кликабельный */}
+                <button
+                  onClick={() => setOpen(isOpen ? null : o.id)}
+                  className="w-full text-left flex items-stretch gap-0 focus:outline-none"
+                  aria-expanded={isOpen}
+                >
+                  <div className="relative w-32 sm:w-48 shrink-0 overflow-hidden">
+                    <img src={o.cover} alt={o.name} className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
+                  </div>
+                  <div className="flex-1 flex items-center justify-between gap-4 p-4 sm:p-6">
+                    <div>
+                      <div className="flex items-center gap-2 mb-1">
+                        <h3 className="text-lg sm:text-xl font-display font-semibold text-frost-800">{o.name}</h3>
+                        {o.tag && (
+                          <span className="text-[10px] uppercase tracking-wider font-semibold px-2 py-0.5 rounded-full bg-amber-100 text-amber-500">{o.tag}</span>
+                        )}
+                      </div>
+                      <p className="text-frost-500 text-sm leading-relaxed pr-2">{o.short}</p>
+                    </div>
+                    <div className="text-right shrink-0 flex flex-col items-end">
+                      <div className="text-xl sm:text-2xl font-bold text-frost-600 whitespace-nowrap">{o.price}</div>
+                      <div className="text-xs text-frost-400 mt-0.5">{o.priceUnit}</div>
+                      <svg className={`w-5 h-5 text-frost-400 mt-2 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </div>
+                  </div>
+                </button>
+
+                {/* Раскрывающееся содержимое */}
+                <div className={`grid transition-all duration-500 ease-in-out ${isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}>
+                  <div className="overflow-hidden">
+                    <div className="px-4 sm:px-6 pb-6 pt-2 border-t border-frost-100">
+                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-4">
+                        {/* Особенности */}
+                        <div>
+                          <div className="text-xs text-frost-400 uppercase tracking-wider mb-3">Что входит</div>
+                          <ul className="space-y-2">
+                            {o.features.map((f, i) => (
+                              <li key={i} className="flex items-start gap-2.5 text-sm text-frost-700">
+                                <svg className="w-4 h-4 text-frost-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                                </svg>
+                                <span>{f}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+
+                        {/* Цены */}
+                        {o.rates.length > 0 && (
+                          <div>
+                            <div className="text-xs text-frost-400 uppercase tracking-wider mb-3">Стоимость</div>
+                            <div className="space-y-2">
+                              {o.rates.map((r, i) => (
+                                <div key={i} className="flex justify-between items-center gap-4 bg-white rounded-xl px-4 py-2.5 border border-frost-100">
+                                  <span className="text-sm text-frost-600">{r.label}</span>
+                                  <span className="text-sm font-semibold text-frost-800 whitespace-nowrap">{r.value}</span>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+
+                      {o.note && (
+                        <p className="text-sm text-frost-500 italic mt-5 bg-amber-50 border border-amber-100 rounded-xl px-4 py-3">{o.note}</p>
+                      )}
+
+                      {/* Мини-галерея объекта */}
+                      <div className="flex gap-2.5 overflow-x-auto mt-6 pb-2 -mx-1 px-1">
+                        {o.photos.map((src, i) => (
+                          <button
+                            key={i}
+                            onClick={() => setLightbox({ photos: o.photos, i })}
+                            className="relative shrink-0 w-28 h-36 rounded-xl overflow-hidden group"
+                          >
+                            <img src={src} alt={`${o.name} — фото ${i + 1}`} className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
+                            <div className="absolute inset-0 bg-frost-900/0 group-hover:bg-frost-900/15 transition-colors" />
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Лайтбокс для фото объектов */}
+      {lightbox && (
+        <div className="fixed inset-0 z-[100] bg-frost-900/95 backdrop-blur-sm flex items-center justify-center p-4 md:p-8" onClick={() => setLightbox(null)}>
+          <button className="absolute top-6 right-6 text-white/60 hover:text-white transition-colors z-10" onClick={() => setLightbox(null)} aria-label="Закрыть">
+            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+          </button>
+          <button className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 text-white/50 hover:text-white transition-colors" onClick={(e) => { e.stopPropagation(); setLightbox((p) => ({ ...p, i: (p.i - 1 + p.photos.length) % p.photos.length })); }} aria-label="Назад">
+            <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
+          </button>
+          <img src={lightbox.photos[lightbox.i]} alt="" className="max-w-full max-h-[85vh] object-contain rounded-lg shadow-2xl" onClick={(e) => e.stopPropagation()} />
+          <button className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 text-white/50 hover:text-white transition-colors" onClick={(e) => { e.stopPropagation(); setLightbox((p) => ({ ...p, i: (p.i + 1) % p.photos.length })); }} aria-label="Вперёд">
             <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
           </button>
         </div>
@@ -519,7 +757,10 @@ export default function KedrLanding() {
   const address = "СНТ Вера, Тихая улица, 17/2";
 
   const prices = [
-    { title: "Аренда домика", desc: "Дом на 4 человек, мангал, территория 100 соток. Будни — 9 000 ₽, выходные и праздники — 11 000 ₽", price: "9 000 / 11 000 ₽", unit: "будни / выходные" },
+    { title: "Домик №1", desc: "Дом на 4 человек, мангал, территория 100 соток. Будни — 9 000 ₽, выходные и праздники — 11 000 ₽", price: "9 000 / 11 000 ₽", unit: "будни / выходные" },
+    { title: "Домик №2", desc: "Новый домик до 4 гостей: кухня, ТВ, душ, терраса, бесплатный бассейн. Также сдаётся по часам", price: "7 000 / 8 000 ₽", unit: "будни / выходные" },
+    { title: "Беседка", desc: "До 25 человек, мангальная зона, санузел. С 6-го часа — 800 ₽/час", price: "1 000 / 1 200 ₽", unit: "будни / выходные, за час" },
+    { title: "Бассейн", desc: "Большой открытый бассейн — бесплатно для гостей домиков и при бронировании беседки", price: "Бесплатно", unit: "для гостей" },
     { title: "Баня", desc: "Русская баня в домике — жаркий пар", price: "3 000 ₽", unit: "доп. услуга" },
     { title: "Купель", desc: "Открытая купель на свежем воздухе", price: "5 000 ₽", unit: "доп. услуга" },
   ];
@@ -536,6 +777,7 @@ export default function KedrLanding() {
       <Header phone={phone} scrolled={scrolled} />
       <Hero phone={phone} mounted={mounted} />
       <Features />
+      <Accommodation />
       <Gallery />
       <PriceList items={prices} />
       <Conditions />
