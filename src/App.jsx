@@ -205,8 +205,18 @@ function Hero({ phone, mounted }) {
 const FEATURES = [
   {
     icon: <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1" /></svg>,
-    title: "Уютный домик",
-    desc: "36 м², 2 комнаты, тёплые полы, полностью оборудованная кухня. Построен в 2025 году",
+    title: "Два уютных домика",
+    desc: "Тёплые полы, оборудованные кухни, душ и ТВ. Первый — 36 м², 2 комнаты; второй — новый, до 4 гостей",
+  },
+  {
+    icon: <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 21V10l8-5 8 5v11M4 21h16M9 21v-5a3 3 0 016 0v5" /></svg>,
+    title: "Просторная беседка",
+    desc: "До 25 гостей, удобная мангальная зона, санузел и завораживающий вид на лес",
+  },
+  {
+    icon: <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M2 15c2 0 2 1.4 4 1.4S8 15 10 15s2 1.4 4 1.4 2-1.4 4-1.4M2 19c2 0 2 1.4 4 1.4S8 19 10 19s2 1.4 4 1.4 2-1.4 4-1.4M6 13V6a2 2 0 114 0M14 13V6a2 2 0 114 0" /></svg>,
+    title: "Большой бассейн",
+    desc: "Открытый бассейн на территории — бесплатно для гостей домиков и при бронировании беседки",
   },
   {
     icon: <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z" /></svg>,
@@ -239,7 +249,7 @@ function Features() {
           Всё для настоящего отдыха — в окружении живописной сибирской природы
         </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
           {FEATURES.map((f, i) => (
             <div key={i} className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-sm hover:shadow-md hover:shadow-frost-200/30 transition-all duration-300 border border-frost-100 group">
               <div className="w-12 h-12 bg-frost-50 rounded-xl flex items-center justify-center text-frost-600 mb-4 group-hover:bg-frost-100 transition-colors">
