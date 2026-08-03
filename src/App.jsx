@@ -57,7 +57,6 @@ function Header({ phone, scrolled }) {
     ["#features", "О нас"],
     ["#accommodation", "Размещение"],
     ["#gallery", "Галерея"],
-    ["#prices", "Цены"],
     ["#conditions", "Условия"],
     ["#reviews", "Отзывы"],
     ["#contacts", "Контакты"],
@@ -392,6 +391,8 @@ const CABIN2 = {
     "Бесплатный доступ к большому бассейну",
   ],
   photos: [
+    "/objects/cabin2-terrace.jpg",
+    "/objects/cabin2-terrace2.jpg",
     "/objects/cabin2-kitchen.jpg",
     "/objects/cabin2-living.jpg",
     "/objects/cabin2-bed.jpg",
@@ -442,8 +443,9 @@ const SMALL_GAZEBO = {
     "Мангальная зона рядом",
   ],
   photos: [
-    "/objects/cabin2-terrace.jpg",
-    "/objects/cabin2-terrace2.jpg",
+    "/objects/cabin2-kitchen.jpg",
+    "/objects/cabin2-fridge.jpg",
+    "/objects/cabin2-living.jpg",
   ],
   rates: [
     { label: "Пт, сб, вс, 1-5 час", value: "1 200 ₽ / час" },
@@ -480,9 +482,9 @@ const GROUPS = [
 
 function SubObject({ o, onPhoto }) {
   return (
-    <div className="bg-white rounded-2xl border border-frost-100 p-5">
+    <div className="bg-white rounded-2xl border border-frost-100 p-5 min-w-0">
       <div className="flex items-start justify-between gap-3 mb-1">
-        <div className="flex items-center gap-2 flex-wrap">
+        <div className="flex items-center gap-2 flex-wrap min-w-0">
           <h4 className="text-base sm:text-lg font-display font-semibold text-frost-800">{o.name}</h4>
           {o.tag && <span className="text-[10px] uppercase tracking-wider font-semibold px-2 py-0.5 rounded-full bg-amber-100 text-amber-500">{o.tag}</span>}
         </div>
@@ -583,19 +585,19 @@ function Accommodation() {
                   className="w-full text-left flex items-stretch gap-0 focus:outline-none"
                   aria-expanded={isOpen}
                 >
-                  <div className="relative w-32 sm:w-48 shrink-0 overflow-hidden">
+                  <div className="relative w-24 sm:w-48 shrink-0 overflow-hidden">
                     <img src={g.cover} alt={g.name} className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
                   </div>
-                  <div className="flex-1 flex items-center justify-between gap-4 p-4 sm:p-6">
-                    <div>
-                      <div className="flex items-center gap-2 mb-1">
+                  <div className="flex-1 min-w-0 flex items-center justify-between gap-3 p-4 sm:p-6">
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-2 mb-1 flex-wrap">
                         <h3 className="text-lg sm:text-xl font-display font-semibold text-frost-800">{g.name}</h3>
                         {g.tag && <span className="text-[10px] uppercase tracking-wider font-semibold px-2 py-0.5 rounded-full bg-amber-100 text-amber-500">{g.tag}</span>}
                       </div>
-                      <p className="text-frost-500 text-sm leading-relaxed pr-2">{g.short}</p>
+                      <p className="text-frost-500 text-xs sm:text-sm leading-relaxed">{g.short}</p>
                     </div>
                     <div className="text-right shrink-0 flex flex-col items-end">
-                      <div className="text-xl sm:text-2xl font-bold text-frost-600 whitespace-nowrap">{g.priceHint}</div>
+                      <div className="text-base sm:text-2xl font-bold text-frost-600 whitespace-nowrap">{g.priceHint}</div>
                       <svg className={`w-5 h-5 text-frost-400 mt-2 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                       </svg>
@@ -855,7 +857,6 @@ export default function KedrLanding() {
       <Features />
       <Accommodation />
       <Gallery />
-      <PriceList items={prices} />
       <Conditions />
       <div id="reviews">
         <Feedbacks />
