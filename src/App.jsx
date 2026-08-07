@@ -205,7 +205,7 @@ const FEATURES = [
   {
     icon: <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1" /></svg>,
     title: "Два уютных домика",
-    desc: "Тёплые полы, оборудованные кухни, душ и ТВ. Первый — 36 м², 2 комнаты; второй — новый, до 4 гостей",
+    desc: "Тёплые полы, оборудованные кухни, душ и ТВ. Первый — 36 м², 2 комнаты; второй — 27 м², до 4 гостей",
   },
   {
     icon: <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 21V10l8-5 8 5v11M4 21h16M9 21v-5a3 3 0 016 0v5" /></svg>,
@@ -215,7 +215,7 @@ const FEATURES = [
   {
     icon: <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M2 15c2 0 2 1.4 4 1.4S8 15 10 15s2 1.4 4 1.4 2-1.4 4-1.4M2 19c2 0 2 1.4 4 1.4S8 19 10 19s2 1.4 4 1.4 2-1.4 4-1.4M6 13V6a2 2 0 114 0M14 13V6a2 2 0 114 0" /></svg>,
     title: "Большой бассейн",
-    desc: "Открытый бассейн на территории — бесплатно для гостей домиков и при бронировании беседки",
+    desc: "Открытый бассейн с подогревом — бесплатно для гостей домиков и при бронировании беседки",
   },
   {
     icon: <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z" /></svg>,
@@ -267,16 +267,16 @@ function Features() {
 /* ===== GALLERY ===== */
 
 const GALLERY_IMAGES = [
-  { src: "/gallery/summer-table.jpg", alt: "Накрытый стол на террасе", span: "col-span-2 row-span-2" },
+  { src: "/gallery/path-cabins.jpg",  alt: "Панорама территории базы «Кедр»", span: "col-span-2 row-span-2" },
   { src: "/gallery/cabin-pines.jpg",  alt: "Домик среди сосен",        span: "col-span-1 row-span-1" },
   { src: "/gallery/wildflowers.jpg",  alt: "Букет полевых цветов",     span: "col-span-1 row-span-1" },
   { src: "/gallery/window-view.jpg",  alt: "Вид из окна на лес",       span: "col-span-1 row-span-2" },
-  { src: "/gallery/path-cabins.jpg",  alt: "Аллея к домикам",          span: "col-span-1 row-span-1" },
   { src: "/gallery/bathroom.jpg",     alt: "Санузел в домике",         span: "col-span-1 row-span-1" },
   { src: "/gallery/young-leaves.jpg", alt: "Молодая листва",           span: "col-span-1 row-span-1" },
   { src: "/objects/pool-1.jpg",       alt: "Бассейн на территории",    span: "col-span-1 row-span-2" },
   { src: "/objects/besedka-1.jpg",    alt: "Беседка с мангальной зоной", span: "col-span-1 row-span-1" },
   { src: "/objects/cabin2-living.jpg", alt: "Гостиная в новом домике",  span: "col-span-1 row-span-1" },
+  { src: "/gallery/summer-table.jpg", alt: "Накрытый стол на террасе", span: "col-span-1 row-span-1" },
 ];
 
 function Gallery() {
@@ -342,7 +342,7 @@ const VIP = {
   tag: "Премиум",
   price: "9 000 / 11 000 ₽",
   priceUnit: "будни / выходные",
-  desc: "Уютный дом с панорамными окнами и видом на лес.",
+  desc: "Уютный дом с панорамными окнами и видом на лес. До 4 гостей.",
   features: [
     "Панорамные окна с видом на лес",
     "Сауна из массива липы",
@@ -352,6 +352,7 @@ const VIP = {
     "Тёплые полы, современный ремонт",
     "Спальня с большой кроватью",
     "Гостевая комната с кухонной зоной",
+    "Телевизор",
     "Кухня: варочная плита, СВЧ, холодильник, чайник, посуда",
     "Санузел",
   ],
@@ -444,7 +445,6 @@ const SMALL_GAZEBO = {
   ],
   photos: [
     "/objects/cabin2-kitchen.jpg",
-    "/objects/cabin2-fridge.jpg",
     "/objects/cabin2-living.jpg",
   ],
   rates: [
@@ -459,9 +459,9 @@ const POOL = {
   tag: "Бесплатно",
   price: "0 ₽",
   priceUnit: "для гостей",
-  desc: "Большой открытый бассейн для гостей.",
+  desc: "Большой открытый бассейн с подогревом для гостей.",
   features: [
-    "Большой открытый бассейн",
+    "Большой открытый бассейн с подогревом",
     "Бесплатно для гостей наших домиков",
     "Доступен при бронировании беседки",
     "Чистая вода, зона отдыха у воды",
@@ -477,7 +477,7 @@ const POOL = {
 const GROUPS = [
   { id: "cabins",  name: "Домики",  cover: "/objects/vip-terrace.jpg", short: "ВИП-домик и Домик №2 — выберите под свою компанию", priceHint: "от 7 000 ₽", items: [VIP, CABIN2] },
   { id: "gazebos", name: "Беседки", cover: "/objects/besedka-1.jpg",   short: "Большая и малая — для праздника или тёплого вечера", priceHint: "от 800 ₽/час", items: [BIG_GAZEBO, SMALL_GAZEBO] },
-  { id: "pool",    name: "Бассейн", cover: "/objects/pool-1.jpg",       short: "Большой открытый бассейн для гостей — бесплатно", priceHint: "0 ₽", tag: "Бесплатно", items: [POOL] },
+  { id: "pool",    name: "Бассейн", cover: "/objects/pool-1.jpg",       short: "Большой открытый бассейн с подогревом — бесплатно для гостей", priceHint: "0 ₽", tag: "Бесплатно", items: [POOL] },
 ];
 
 function SubObject({ o, onPhoto }) {
