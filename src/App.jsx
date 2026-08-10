@@ -345,8 +345,8 @@ const VIP = {
   desc: "Уютный дом с панорамными окнами и видом на лес. До 4 гостей.",
   features: [
     "Панорамные окна с видом на лес",
-    "Сауна из массива липы",
-    "Купель с подогревом, всесезонная",
+    "Сауна из массива липы (оплачивается отдельно)",
+    "Купель с подогревом, всесезонная (оплачивается отдельно)",
     "Просторная терраса с видом на лес",
     "Мангальная зона",
     "Тёплые полы, современный ремонт",
@@ -357,9 +357,9 @@ const VIP = {
     "Санузел",
   ],
   extras: [
-    { label: "Баня - ОПЛАЧИВАЕТСЯ ОТДЕЛЬНО", value: "3 000 ₽" },
-    { label: "Купель, лето (25-27°) - ОПЛАЧИВАЕТСЯ ОТДЕЛЬНО", value: "3 000 ₽" },
-    { label: "Купель, зима (до 40°) - ОПЛАЧИВАЕТСЯ ОТДЕЛЬНО", value: "5 000 ₽" },
+    { label: "Баня", value: "3 000 ₽" },
+    { label: "Купель, лето (25-27°)", value: "3 000 ₽" },
+    { label: "Купель, зима (до 40°)", value: "5 000 ₽" },
   ],
   photos: [
     "/objects/vip-terrace.jpg",
@@ -509,7 +509,7 @@ function SubObject({ o, onPhoto }) {
 
       {o.extras && o.extras.length > 0 && (
         <>
-          <div className="text-xs text-frost-400 uppercase tracking-wider mb-2">Дополнительные услуги<span className="font-bold text-frost-600 normal-case"> - оплачиваются отдельно</span></div>
+          <div className="text-xs text-frost-400 uppercase tracking-wider mb-2">Дополнительные услуги</div>
           <div className="space-y-1.5 mb-4">
             {o.extras.map((r, i) => (
               <div key={i} className="flex justify-between items-center gap-3 bg-snow-50 rounded-lg px-3 py-2 border border-frost-100">
