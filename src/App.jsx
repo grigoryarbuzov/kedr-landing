@@ -340,7 +340,7 @@ function Gallery() {
 const VIP = {
   name: "ВИП-домик",
   tag: "Премиум",
-  price: "9 000 / 11 000 ₽",
+  price: "9 000 / 12 000 ₽",
   priceUnit: "будни / выходные",
   desc: "Уютный дом с панорамными окнами и видом на лес. До 4 гостей.",
   features: [
@@ -357,9 +357,9 @@ const VIP = {
     "Санузел",
   ],
   extras: [
-    { label: "Баня", value: "3 000 ₽" },
-    { label: "Купель, лето (25-27°)", value: "3 000 ₽" },
-    { label: "Купель, зима (до 40°)", value: "5 000 ₽" },
+    { label: "Баня - ОПЛАЧИВАЕТСЯ ОТДЕЛЬНО", value: "3 000 ₽" },
+    { label: "Купель, лето (25-27°) - ОПЛАЧИВАЕТСЯ ОТДЕЛЬНО", value: "3 000 ₽" },
+    { label: "Купель, зима (до 40°) - ОПЛАЧИВАЕТСЯ ОТДЕЛЬНО", value: "5 000 ₽" },
   ],
   photos: [
     "/objects/vip-terrace.jpg",
@@ -509,7 +509,7 @@ function SubObject({ o, onPhoto }) {
 
       {o.extras && o.extras.length > 0 && (
         <>
-          <div className="text-xs text-frost-400 uppercase tracking-wider mb-2">Дополнительные услуги</div>
+          <div className="text-xs text-frost-400 uppercase tracking-wider mb-2">Дополнительные услуги<span className="font-bold text-frost-600 normal-case"> - оплачиваются отдельно</span></div>
           <div className="space-y-1.5 mb-4">
             {o.extras.map((r, i) => (
               <div key={i} className="flex justify-between items-center gap-3 bg-snow-50 rounded-lg px-3 py-2 border border-frost-100">
@@ -835,7 +835,7 @@ export default function KedrLanding() {
   const address = "СНТ Вера, Тихая улица, 17/2";
 
   const prices = [
-    { title: "ВИП-домик", desc: "Панорамные окна, сауна из липы, купель с подогревом, терраса с видом на лес. Будни — 9 000 ₽, выходные — 11 000 ₽", price: "9 000 / 11 000 ₽", unit: "будни / выходные" },
+    { title: "ВИП-домик", desc: "Панорамные окна, сауна из липы, купель с подогревом, терраса с видом на лес. Будни — 9 000 ₽, выходные — 12 000 ₽", price: "9 000 / 12 000 ₽", unit: "будни / выходные" },
     { title: "Домик №2", desc: "Уютный домик до 4 гостей: кухня, ТВ, душ, терраса, бесплатный бассейн", price: "7 000 / 8 000 ₽", unit: "будни / выходные" },
     { title: "Беседки", desc: "Большая до 25 человек и малая с тёплой зоной. С 6-го часа — 800 ₽/час", price: "от 800 ₽", unit: "за час" },
     { title: "Бассейн", desc: "Большой открытый бассейн — бесплатно для гостей домиков и при бронировании беседки", price: "Бесплатно", unit: "для гостей" },
