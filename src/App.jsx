@@ -225,7 +225,7 @@ const FEATURES = [
   {
     icon: <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>,
     title: "Купель",
-    desc: "Открытая купель на свежем воздухе — бодрящий контраст после парной",
+    desc: "Открытая купель с подогревом на свежем воздухе",
   },
   {
     icon: <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" /></svg>,
@@ -340,8 +340,8 @@ function Gallery() {
 const VIP = {
   name: "ВИП-домик",
   tag: "Премиум",
-  price: "9 000 / 12 000 ₽",
-  priceUnit: "будни и вс / пт-сб",
+  price: "9 000 / 11 000 ₽",
+  priceUnit: "остальные дни / суббота",
   desc: "Уютный дом с панорамными окнами и видом на лес. До 4 гостей.",
   features: [
     "Панорамные окна с видом на лес",
@@ -358,9 +358,9 @@ const VIP = {
   ],
   extras: [
     { label: "Баня", value: "3 000 ₽" },
-    { label: "Купель, лето (25-27°)", value: "3 500 ₽" },
-    { label: "Купель, зима (до 40°)", value: "5 000 ₽" },
+    { label: "Купель с подогревом", value: "5 000 ₽" },
   ],
+  promo: "При заказе бани купель в подарок",
   photos: [
     "/objects/vip-terrace.jpg",
     "/objects/vip-pool.jpg",
@@ -374,16 +374,16 @@ const VIP = {
     "/objects/vip-fire.jpg",
   ],
   rates: [
-    { label: "Будни и воскресенье", value: "9 000 ₽ / сутки" },
-    { label: "Пятница и суббота", value: "12 000 ₽ / сутки" },
+    { label: "Все дни, кроме субботы", value: "9 000 ₽ / сутки" },
+    { label: "Суббота", value: "11 000 ₽ / сутки" },
   ],
 };
 
 const CABIN2 = {
   name: "Домик №2",
   tag: "Новый",
-  price: "7 000 / 8 000 ₽",
-  priceUnit: "пн-чт / пт-вс",
+  price: "6 000 / 8 000 ₽",
+  priceUnit: "остальные дни / суббота",
   desc: "Уютный домик до 4 гостей с террасой, кухней и бесплатным бассейном.",
   features: [
     "До 4 гостей: двуспальная кровать + диван (ещё два места)",
@@ -406,8 +406,8 @@ const CABIN2 = {
     "/objects/cabin2-shower.jpg",
   ],
   rates: [
-    { label: "Пн-чт", value: "7 000 ₽ / сутки" },
-    { label: "Пт-вс", value: "8 000 ₽ / сутки" },
+    { label: "Все дни, кроме субботы", value: "6 000 ₽ / сутки" },
+    { label: "Суббота", value: "8 000 ₽ / сутки" },
   ],
 };
 
@@ -478,7 +478,7 @@ const POOL = {
 };
 
 const GROUPS = [
-  { id: "cabins",  name: "Домики",  cover: "/objects/vip-terrace.jpg", short: "ВИП-домик и Домик №2 — выберите под свою компанию", priceHint: "от 7 000 ₽", items: [VIP, CABIN2] },
+  { id: "cabins",  name: "Домики",  cover: "/objects/vip-terrace.jpg", short: "ВИП-домик и Домик №2 — выберите под свою компанию", priceHint: "от 6 000 ₽", items: [VIP, CABIN2] },
   { id: "gazebos", name: "Беседки", cover: "/objects/besedka-1.jpg",   short: "Большая и малая — для праздника или тёплого вечера", priceHint: "от 800 ₽/час", items: [BIG_GAZEBO, SMALL_GAZEBO] },
   { id: "pool",    name: "Бассейн", cover: "/objects/pool-1.jpg",       short: "Большой открытый бассейн с подогревом — бесплатно для гостей", priceHint: "0 ₽", tag: "Бесплатно", items: [POOL] },
 ];
@@ -522,6 +522,12 @@ function SubObject({ o, onPhoto }) {
             ))}
           </div>
         </>
+      )}
+
+      {o.promo && (
+        <p className="mb-4 rounded-lg border border-frost-200 bg-frost-50 px-4 py-3 text-sm font-semibold text-frost-800">
+          {o.promo}
+        </p>
       )}
 
       {o.rates && o.rates.length > 0 && (
@@ -838,11 +844,11 @@ export default function KedrLanding() {
   const address = "СНТ Вера, Тихая улица, 17/2";
 
   const prices = [
-    { title: "ВИП-домик", desc: "Панорамные окна, сауна из липы, купель с подогревом, терраса с видом на лес. Будни и вс — 9 000 ₽, пт-сб — 12 000 ₽", price: "9 000 / 12 000 ₽", unit: "будни и вс / пт-сб" },
-    { title: "Домик №2", desc: "Уютный домик до 4 гостей: кухня, ТВ, душ, терраса, бесплатный бассейн", price: "7 000 / 8 000 ₽", unit: "пн-чт / пт-вс" },
+    { title: "ВИП-домик", desc: "Панорамные окна, сауна из липы, купель с подогревом, терраса с видом на лес. Суббота — 11 000 ₽, остальные дни — 9 000 ₽. При заказе бани купель в подарок", price: "9 000 / 11 000 ₽", unit: "остальные дни / суббота" },
+    { title: "Домик №2", desc: "Уютный домик до 4 гостей: кухня, ТВ, душ, терраса, бесплатный бассейн", price: "6 000 / 8 000 ₽", unit: "остальные дни / суббота" },
     { title: "Беседки", desc: "Большая до 25 человек и малая с тёплой зоной. С 6-го часа — 800 ₽/час", price: "от 800 ₽", unit: "за час" },
     { title: "Бассейн", desc: "Большой открытый бассейн — бесплатно для гостей домиков и при бронировании беседки", price: "Бесплатно", unit: "для гостей" },
-    { title: "Баня", desc: "Русская баня в домике — жаркий пар", price: "3 000 ₽", unit: "доп. услуга" },
+    { title: "Баня", desc: "Для ВИП-домика: при заказе бани купель в подарок", price: "3 000 ₽", unit: "доп. услуга" },
     { title: "Купель", desc: "Открытая купель на свежем воздухе", price: "5 000 ₽", unit: "доп. услуга" },
   ];
 
