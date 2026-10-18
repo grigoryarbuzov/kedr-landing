@@ -199,6 +199,41 @@ function Hero({ phone, mounted }) {
   );
 }
 
+/* ===== AWARD ===== */
+
+function AwardHighlight() {
+  return (
+    <section aria-labelledby="award-heading" className="border-b border-frost-100 bg-snow-50 py-12 md:py-16">
+      <div className="container mx-auto px-6 md:px-8">
+        <div className="mx-auto flex max-w-4xl flex-col items-center gap-8 md:flex-row md:gap-14">
+          <div className="shrink-0 rounded-2xl bg-white p-2 shadow-xl shadow-frost-900/10 ring-1 ring-frost-100">
+            {/* Public poster: https://apartpro.ru/wp-content/plugins/apartpro-geo-manager/assets/awards/avito-hospitality-poster.webp */}
+            <img
+              src="/awards/avito-hospitality-2025.webp"
+              alt="Знак Авито Путешествий «Здесь гостеприимно» за оценки гостей в 2025 году"
+              width="1000"
+              height="1396"
+              loading="lazy"
+              decoding="async"
+              className="h-auto w-52 rounded-xl sm:w-56 md:w-60"
+            />
+          </div>
+          <div className="max-w-xl text-center md:text-left">
+            <p className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-frost-500">Награда Авито Путешествий</p>
+            <h2 id="award-heading" className="font-display text-4xl font-bold leading-tight text-frost-800 sm:text-5xl">
+              Здесь гостеприимно
+            </h2>
+            <p className="mt-5 text-lg leading-relaxed text-frost-700">
+              Гости Авито Путешествий высоко оценили проживание на базе «Кедр» в 2025 году.
+              За это мы получили знак «Здесь гостеприимно».
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* ===== FEATURES ===== */
 
 const FEATURES = [
@@ -863,6 +898,7 @@ export default function KedrLanding() {
       <Meta title={meta.title} description={meta.description} keywords={meta.keywords} />
       <Header phone={phone} scrolled={scrolled} />
       <Hero phone={phone} mounted={mounted} />
+      <AwardHighlight />
       <Features />
       <Accommodation />
       <Gallery />
