@@ -31,8 +31,15 @@ function StarRating() {
 export default function Feedbacks() {
   const sectionRef = useRef(null);
   const [page, setPage] = useState(0);
-  const perPage = typeof window !== "undefined" && window.innerWidth < 640 ? 1 : window.innerWidth < 1024 ? 2 : 3;
+  const [perPage, setPerPage] = useState(3);
   const totalPages = Math.ceil(REVIEWS.length / perPage);
+
+  useEffect(() => {
+    const updatePerPage = () => setPerPage(window.innerWidth < 640 ? 1 : window.innerWidth < 1024 ? 2 : 3);
+    updatePerPage();
+    window.addEventListener("resize", updatePerPage);
+    return () => window.removeEventListener("resize", updatePerPage);
+  }, []);
 
   useEffect(() => {
     const el = sectionRef.current;

@@ -7,12 +7,12 @@ body { @apply bg-snow-50 text-frost-900 font-body; }
 .container { @apply max-w-6xl mx-auto; }
 
 /* Section reveal on scroll */
-.reveal {
+.js-ready .reveal {
   opacity: 0;
   transform: translateY(40px);
   transition: opacity 0.7s ease-out, transform 0.7s ease-out;
 }
-.reveal.visible {
+.js-ready .reveal.visible {
   opacity: 1;
   transform: translateY(0);
 }

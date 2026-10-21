@@ -1,6 +1,7 @@
 import React from 'react'
-import { createRoot } from 'react-dom/client'
+import { hydrateRoot } from 'react-dom/client'
 import KedrLanding from './App'
 import './index.css'
 
-createRoot(document.getElementById('root')).render(<KedrLanding />)
+document.documentElement.classList.add('js-ready')
+hydrateRoot(document.getElementById('root'), <KedrLanding />)
