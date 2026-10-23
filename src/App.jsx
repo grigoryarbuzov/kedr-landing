@@ -395,7 +395,7 @@ const VIP = {
     { label: "Баня", value: "3 000 ₽" },
     { label: "Купель с подогревом", value: "5 000 ₽" },
   ],
-  promo: "При заказе горячей купели, баня в подарок",
+  promo: "При заказе бани купель в подарок",
   photos: [
     "/objects/vip-terrace.jpg",
     "/objects/vip-pool.jpg",
