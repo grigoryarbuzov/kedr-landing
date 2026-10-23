@@ -395,7 +395,7 @@ const VIP = {
     { label: "Баня", value: "3 000 ₽" },
     { label: "Купель с подогревом", value: "5 000 ₽" },
   ],
-  promo: "При заказе бани купель в подарок",
+  promo: "При заказе горячей купели, баня в подарок",
   photos: [
     "/objects/vip-terrace.jpg",
     "/objects/vip-pool.jpg",
@@ -417,7 +417,7 @@ const VIP = {
 const CABIN2 = {
   name: "Домик №2",
   tag: "Новый",
-  price: "6 000 / 8 000 ₽",
+  price: "7 000 / 8 000 ₽",
   priceUnit: "остальные дни / суббота",
   desc: "Уютный домик до 4 гостей с террасой, кухней и бесплатным бассейном.",
   features: [
@@ -441,7 +441,7 @@ const CABIN2 = {
     "/objects/cabin2-shower.jpg",
   ],
   rates: [
-    { label: "Все дни, кроме субботы", value: "6 000 ₽ / сутки" },
+    { label: "Все дни, кроме субботы", value: "7 000 ₽ / сутки" },
     { label: "Суббота", value: "8 000 ₽ / сутки" },
   ],
 };
@@ -513,7 +513,7 @@ const POOL = {
 };
 
 const GROUPS = [
-  { id: "cabins",  name: "Домики",  cover: "/objects/vip-terrace.jpg", short: "ВИП-домик и Домик №2 — выберите под свою компанию", priceHint: "от 6 000 ₽", items: [VIP, CABIN2] },
+  { id: "cabins",  name: "Домики",  cover: "/objects/vip-terrace.jpg", short: "ВИП-домик и Домик №2 — выберите под свою компанию", priceHint: "от 7 000 ₽", items: [VIP, CABIN2] },
   { id: "gazebos", name: "Беседки", cover: "/objects/besedka-1.jpg",   short: "Большая и малая — для праздника или тёплого вечера", priceHint: "от 800 ₽/час", items: [BIG_GAZEBO, SMALL_GAZEBO] },
   { id: "pool",    name: "Бассейн", cover: "/objects/pool-1.jpg",       short: "Большой открытый бассейн с подогревом — бесплатно для гостей", priceHint: "0 ₽", tag: "Бесплатно", items: [POOL] },
 ];
